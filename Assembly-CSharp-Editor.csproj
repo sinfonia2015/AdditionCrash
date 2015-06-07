@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{F9EE8043-CB25-B7D6-AB86-0B17A42F0C0B}</ProjectGuid>
+	<ProjectGuid>{0E9EA68F-5FF1-34D6-210A-233EE746D6CD}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -71,7 +71,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="AppSteroidWithVoiceChatAndroid">
- <HintPath>C:/DATA/Unity/Unity5/tashizan_prj/Assets/Plugins/Android/AppSteroidWithVoiceChatAndroid.dll</HintPath>
+ <HintPath>C:/Users/yutak_000/Documents/GitHub/AdditionCrash/Assets/Plugins/Android/AppSteroidWithVoiceChatAndroid.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -112,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{91CDCF63-42B4-F2E1-6D22-FA3BFD48D5AE}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{DFE91372-5792-108B-A5C7-1AB7C4D4E584}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

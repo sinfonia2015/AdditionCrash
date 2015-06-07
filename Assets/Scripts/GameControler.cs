@@ -277,7 +277,7 @@ public class GameControler : MonoBehaviour {
 				endStageText.GetComponent<Text>().text = "Stage Clear  " + (stageNumber - 1) ;
 				endScoreText.GetComponent<Text>().text = "累計ポイント  " + totalScore;
 
-				//リーダーボードにスコアを送信後、AppSteroid GUI のリーダーボードを表示
+				//リーダーボードにスコアを送信後、リーダーボードIDをセット
 				FASLeaderboard.ReportScore(leaderboardId, totalScore, delegate(Score score, Error error)
 				{
 					if (error == null)
