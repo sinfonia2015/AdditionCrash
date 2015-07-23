@@ -89,7 +89,7 @@ extern "C"{
     
     UIActivityIndicatorView *fasAi ;
     
-    void _FasStartAcitvityIndicator(){
+    void _FasStartAcitvityIndicator(bool operatable){
         
         if(fasAi != NULL)
             [fasAi stopAnimating];
@@ -99,16 +99,24 @@ extern "C"{
         UIViewController* parent = UnityGetGLViewController();
         
         fasAi = [[UIActivityIndicatorView alloc] init];
-        fasAi.frame = CGRectMake(0, 0, 50, 50);
+        fasAi.frame = parent.view.bounds;
         fasAi.center = parent.view.center;
         fasAi.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
         
+        fasAi.layer.backgroundColor = [[UIColor colorWithWhite:0.0f alpha:0.5f] CGColor];
+        fasAi.hidesWhenStopped = YES;
+        
         [parent.view addSubview:fasAi];
+        
+        if(!operatable)
+            [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
         [fasAi startAnimating];
     }
     
     void _FasStopAcitvityIndicator(){
+        
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         
         if(fasAi != NULL)
             [fasAi stopAnimating];
@@ -123,6 +131,91 @@ extern "C"{
         
         UISaveVideoAtPathToSavedPhotosAlbum(outputPath, nil, nil, nil);
     }
+    
+    void _FasShrinkImage(const char* srcPath, const char* dstPath, int width, int height)
+    {
+        UIImage *srcImage = [UIImage imageWithContentsOfFile:[[NSString alloc] initWithUTF8String:srcPath]];
+        
+        UIImage *dstImage = nil;
+        
+        CGSize imageSize = srcImage.size;
+        
+        CGFloat sw = imageSize.width;
+        
+        CGFloat sh = imageSize.height;
+        
+        CGSize targetSize = CGSizeMake(width, height);
+        
+        CGFloat targetWidth = targetSize.width;
+        
+        CGFloat targetHeight = targetSize.height;
+        
+        CGFloat scaleFactor = 0.0;
+        
+        CGFloat scaledWidth = targetWidth;
+        
+        CGFloat scaledHeight = targetHeight;
+        
+        CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+        
+        if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+        {
+            CGFloat widthFactor = targetWidth / sw;
+            
+            CGFloat heightFactor = targetHeight / sh;
+            
+            if (widthFactor > heightFactor)
+            {
+                scaleFactor = widthFactor; // scale to fit height
+            }
+            else
+            {
+                scaleFactor = heightFactor; // scale to fit width
+            }
+            
+            scaledWidth  = sw * scaleFactor;
+            
+            scaledHeight = sh * scaleFactor;
+            
+            // center the image
+            if (widthFactor > heightFactor)
+            {
+                thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+            }
+            else
+            {
+                if (widthFactor < heightFactor)
+                {
+                    thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+                }
+            }
+        }
+        
+        UIGraphicsBeginImageContext(targetSize); // this will crop
+        
+        CGRect thumbnailRect = CGRectZero;
+        
+        thumbnailRect.origin = thumbnailPoint;
+        
+        thumbnailRect.size.width  = scaledWidth;
+        
+        thumbnailRect.size.height = scaledHeight;
+        
+        [srcImage drawInRect:thumbnailRect];
+        
+        dstImage = UIGraphicsGetImageFromCurrentImageContext();
+        
+        if(dstImage == nil)
+        {
+            NSLog(@"could not scale image");
+        }
+        
+        //pop the context to get back to the default
+        UIGraphicsEndImageContext();
+        
+        NSData *imageData = UIImagePNGRepresentation(dstImage);
+        
+        [imageData writeToFile:[[NSString alloc] initWithUTF8String:dstPath] atomically:YES];
+        
+    }
 }
-
-

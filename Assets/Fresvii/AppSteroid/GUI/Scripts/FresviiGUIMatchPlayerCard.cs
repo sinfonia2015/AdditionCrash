@@ -314,23 +314,23 @@ namespace Fresvii.AppSteroid.Gui
 
                         GUI.Label(playerNamePosition, contentUserName, guiStyleUserName);
 
-                        if (Player.Status == Fresvii.AppSteroid.Models.Player.Statuses.Invited)
+                        if (Player.State == Fresvii.AppSteroid.Models.Player.Status.Invited)
                         {
                             GUI.Label(palyerStatusPosition, FresviiGUIText.Get("PlayerStatusInvited"), guiStylePlayerStatus);
                         }
-                        else if (Player.Status == Fresvii.AppSteroid.Models.Player.Statuses.Accepted)
+                        else if (Player.State == Fresvii.AppSteroid.Models.Player.Status.Accepted)
                         {
                             GUI.Label(palyerStatusPosition, FresviiGUIText.Get("PlayerStatusAccepted"), guiStylePlayerStatus);
                         }
-                        else if (Player.Status == Fresvii.AppSteroid.Models.Player.Statuses.Cancelled)
+                        else if (Player.State == Fresvii.AppSteroid.Models.Player.Status.Cancelled)
                         {
                             GUI.Label(palyerStatusPosition, FresviiGUIText.Get("PlayerStatusCancelled"), guiStylePlayerStatus);
                         }
-                        else if (Player.Status == Fresvii.AppSteroid.Models.Player.Statuses.Matching)
+                        else if (Player.State == Fresvii.AppSteroid.Models.Player.Status.Matching)
                         {
                             GUI.Label(palyerStatusPosition, FresviiGUIText.Get("PlayerStatusMatching"), guiStylePlayerStatus);
                         }
-                        else if (Player.Status == Fresvii.AppSteroid.Models.Player.Statuses.Declined)
+                        else if (Player.State == Fresvii.AppSteroid.Models.Player.Status.Declined)
                         {
                             GUI.Label(palyerStatusPosition, FresviiGUIText.Get("PlayerStatusDeclined"), guiStylePlayerStatus);
                         }

@@ -45,6 +45,26 @@ namespace Fresvii.AppSteroid
 #else
                     instance.unityVersion = 4.6f;
 #endif
+                    if (instance.lightFont == null)
+                    {
+                        instance.lightFont = (Font)Resources.Load("Fonts/Koruri-Light");
+                    }
+                    if (instance.regularFont == null)
+                    {
+                        instance.regularFont = (Font)Resources.Load("Fonts/Koruri-Regular");
+                    }
+                    if (instance.semiboldFont == null)
+                    {
+                        instance.semiboldFont = (Font)Resources.Load("Fonts/Koruri-Semibold");
+                    }
+                    if (instance.boldFont == null)
+                    {
+                        instance.boldFont = (Font)Resources.Load("Fonts/Koruri-Bold");
+                    }
+                    if (instance.extraboldFont == null)
+                    {
+                        instance.extraboldFont = (Font)Resources.Load("Fonts/Koruri-Extrabold");
+                    }
                 }
 
                 return instance;

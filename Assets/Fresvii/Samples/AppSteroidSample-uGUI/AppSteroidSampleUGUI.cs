@@ -117,7 +117,9 @@ public class AppSteroidSampleUGUI : MonoBehaviour {
         //  Show confirming dialog and sign up 
         string username = inputFieldSignUpUserName.text;
 
-        if (string.IsNullOrEmpty(username)) username = "username";
+        if (string.IsNullOrEmpty(username)) username = FASSettings.Instance.defaultUserName;
+
+        Debug.Log(username);
 
 #if !UNITY_EDITOR
 		Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel("OK", "Cancel", "Close");
@@ -178,6 +180,11 @@ public class AppSteroidSampleUGUI : MonoBehaviour {
     public void OnClickLogOut()
     {
         FASUser.LogOut();
+    }
+
+    public void OnClickCaptureScreenShot()
+    {
+        FASUtility.CaptureScreenshotAndSaveToCameraRoll();
     }
 
     #region Private Methods

@@ -56,6 +56,13 @@ const char* pushedIdData;
     }
 }
 
+- (void) applicationDidReceiveMemoryWarning:(UIApplication*)application
+{
+    [super applicationDidReceiveMemoryWarning:application];
+    
+    UnitySendMessage("MemoryWarningReciever", "DidReceiveMemoryWarning","");
+}
+
 @end
 
 

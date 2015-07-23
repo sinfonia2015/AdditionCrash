@@ -414,7 +414,12 @@ namespace Fresvii.AppSteroid.Gui
                             }
                             else
                             {
-                                FASVideo.Play(groupMessage.Video.VideoUrl);
+                                groupMessage.Video.User = groupMessage.User;
+
+                                FASVideo.Play(groupMessage.Video, (_video, button) => 
+                                {                                 
+                                    groupMessage.Video = _video;                                 
+                                });
 
                                 FASVideo.IncrementVideoPlaybackCount(groupMessage.Video.Id, (video, error) =>
                                 {

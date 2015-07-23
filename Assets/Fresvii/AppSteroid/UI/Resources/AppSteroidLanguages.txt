@@ -1,0 +1,248 @@
+Key	English	Japanese
+Done	Done	完了
+Yes	Yes	はい
+No	No	いいえ
+Search	Search Users	ユーザーを検索
+OK	OK	OK
+Cancel	Cancel	キャンセル
+Start	Start	スタート
+Back	Back	戻る
+now	Now	今
+ago	 ago	前
+minute	minute	分
+min	min	分
+minutes	minutes	分
+hour	hour	時間
+hours	hours	時間
+day	day	日
+days	days	日
+WriteAComment	Write a comment...	コメントを書く…
+NewComment	New Comment...	新しいコメント…
+send	send	送る
+Edit	Edit	編集
+Uploading	Uploading	アップロード中
+Community	Community	コミュニティ
+Forum	Forum	フォーラム
+Thread	Thread	スレッド
+Leaderboards	Leaderboards	リーダーボード
+MyProfile	My Profile	マイプロフィール
+MyPage	My Page	マイページ
+MoreApps	More Apps	アプリ
+Delete	Delete	削除
+Subscribe	Subscribe	購読
+Unsubscribe	Unsubscribe	購読解除
+Loading	Loading...	ロード中…
+NewThread	New Thread	新しいスレッド
+EditProfile	Edit Profile	編集
+Submit	Submit	了解
+Username	User name	ユーザー名
+Description	Description	詳細
+Copy	Copy	コピー
+Create	Create	作成
+Close	Close	閉じる
+Profile	Profile	プロフィール
+ChooseImage	Choose Image	画像選択
+ChooseVideo	Choose Video	ビデオ選択
+TextTooLong	Text too long	文字数オーバー
+CopyText	Copy Text	コピー
+EditText	Edit Text	編集
+SaveImage	Save Image	画像保存
+AddImage	Add Image	画像追加
+AddImageFromLibrary	Add Image from Library	ライブラリから画像を追加
+AddImageFromCamera	Add Image from Camera	カメラ画像を追加
+ChangeImage	Change Image	画像を変更
+ChangeImageFromLibrary	Change Image from Library	ライブラリから画像を変更
+ChangeImageFromCamera	Change Image from Camera	カメラ画像から画像を変更
+Report	Report	報告
+OpenLink	Open the link	リンクを開く
+pornography	Pornography	性的
+violence	Violence	暴力的
+infringement	Infringement	版権侵害
+harassment	Harassment	いやがらせ
+personal_information	Personal information	個人情報
+illegal	Illegal	不法
+spam	Spam	スパム
+offensive	Offensive	攻撃的
+other	Other	その他
+ReportSent	Report was sent.	報告送信完了
+Error	Error	エラー
+ServerError	A server error has been detected. Please try again later.	サーバーエラーです。しばらくしてから再度行ってください。
+Offline	Network connection error. Please try again later.	ネットワーク接続エラーです。再度行ってください。
+ThreadCreateError	An unknown error has occured. Please try again later.	エラーが起こりました。再度行ってください。
+CommentCreateError	An unknown error has occured. Please try again later.	エラーが起こりました。再度行ってください。
+CommentEditError	An unknown error has occured. Please try again later.	エラーが起こりました。再度行ってください。
+LoginError	Login failed. Please try again.	ログイン失敗。再度行ってください。
+LoginErrorAndRetry	Login failed. Do you want to retry?	ログイン失敗。再度行いますか？
+ScheduledMaintenance	We are currently down for scheduled maintenance. We will be back soon. Thank you for your patience.	現在、定期メンテナンス中です。お待ちください。
+UnscheduledMaintenance	We are currently down for unscheduled maintenance. We will be back soon. Thank you for your patience.	現在、メンテナンス中です。お待ちください。
+RegisterError	Remote notification service error.	リモート通知のエラーが発生しました。
+UnknownError	An unknown error has occured. Please try again later.	エラーが起こりました。再度行ってください。
+ProfileUpdateError	An unknown error has occured. Please try again later.	エラーが起こりました。再度行ってください。
+ProfileUpdateSuccess	Your profile has been updated.	プロフィールが更新されました。
+UserNotFound	Can not find user.	ユーザーが見つかりません。
+TimeOut	Connection to server timed out. Please try again later.	サーバー接続のタイムアウトが発生しました。再度行ってください。
+TimeOutUpload	Could not upload data. Please try again later. 	データのアップロードができませんでした。再度行ってください。
+LonelyGroupError	Cannot send a message to an empty group.	他に誰もいないグループにメッセージは送信できません。
+VideoUploadError	Video uploading failed. Please try again.	ビデオアップロードに失敗しました。再度行ってください。
+ChoosePhoto	Choose Image from Library	ライブラリから画像選択
+ChooseMovie	Choose Video from Library	ライブラリからビデオ選択
+TakePhoto	Take a Photo	写真を撮る
+CancelPhoto	Cancel selected image	選択中の画像を取消す
+CancelVideo	Cancel selected video	選択中のビデオを取消す
+ConfirmDeleteThread	Are you sure you want to delete the whole thread?	スレッド全体を削除してよいですか？
+ConfirmDeleteComment	Are you sure you want to delete this comment?	このコメントを削除してよいですか？
+ThreadNone	This thread was deleted.	このスレッドは削除されています。
+VideoNone	This video was deleted.	このビデオは削除されています。
+Today	Today	今日
+Weekly	Weekly	今週
+Total	Total	すべて
+You	You	あなた
+AllPlayers	All Players	すべてのプレイヤー
+FriendRequestCount	You have # friend requests	# 通のフレンドリクエストがあります。
+Add	Add	追加
+Confirm	Confirm	承認
+Ignore	Ignore	無視
+Hide	Hide	隠す
+NotNow	Not Now	あとで
+Friend	Friend	ともだち
+Unfriend	Unfriend	ともだち解除
+FRIENDS	FRIENDS	ともだち
+Friends	Friends	ともだち
+FriendList	Friend List	フレンドリスト
+Requesting	Requesting	リクエスト中
+Requested	Requested	リクエスト受領
+FriendRequests	Friend Requests	フレンドリクエスト
+AddFriend	Add Friend	ともだち申請
+RequestSent	Request Sent	リクエスト送信
+Message	Message	メッセージ
+ConfirmUnfriend	Are you sure you want to unfriend?	ともだち解除してよいですか？
+Messages	Messages	メッセージ
+NewMessage	New Message	新しいメッセージ
+Members	Members	メンバー
+MemberList	Member List	メンバーリスト
+To	<b>To:</b>	<b>宛先:</b>
+AddContact	Add Contact	コンタクトに追加
+PlusAddContact	＋ Add Contact	＋追加
+SentAPhoto	 sent a photo.	 が写真を送信
+NotArrowDeletePair	Cannot remove member from a pair group.	ペアグループは削除できません。
+GroupNone	This group was deleted.	このグループは削除されています。
+NobodyElse	Nobody else	誰もいません。
+Groups	Groups	グループ
+ConfirmDeleteGroup	Are you sure you want to delete this group? 	グループを削除してもよいですか？
+ConfirmRemoveMember	Are you sure you want to remove this member? 	メンバーを削除してもよいですか？
+ConfirmLeaveGroup	Are you sure you want to leave from this group?	グループをぬけてよいですか？
+NoSelectedMember	Please select member.	メンバーを選択してください。
+Accept	Accept	受信する
+Decline	Decline	拒否する
+GroupCalls	Group Calls	グループコール
+Call	Call	通話
+End	End	終了
+Calling	Calling	呼出中
+SpeakerVolume	Speaker Volume	スピーカーボリューム
+MicrophoneVolume	Microphone Volume	マイクボリューム
+ConfirmToCall	Group call	グループコール
+GroupConferenceMemberLimitation	Oops! Too many members in the group. Try again with under 4 people.	４人までのグループを選択してください。
+VoiceChatAlredayExists	Some group conference is already exists.	現在、他の通話中です。
+VoiceChatConnectingNotification	Voice chat is connecting	通話中
+VoiceChatError	Can't take your call right now. Hit me up later.	通話開始できませんでした。再度おかけなおし下さい。
+Matchmaking	Matchmaking	マッチメイキング
+MultiplayerGame	Multiplayer Game	マルチプレイヤーゲーム
+Players	Players	プレイヤー
+PlayersAvailable	players available	人利用可能
+MatchMakingCanceled	This match making request was canceled or timeout.	このマッチメイクリクエストはキャンセルされたかタイムアウトになりました。
+AutoMatch	Waiting for Player...	プレイヤーの参加を待っています…
+MatchDisposed	Not enough players. Please try again. 	プレイヤーが集まりませんでした。再度行ってください。
+InviteFriend	Invite friend or wait for opponent	友達を招待するか、対戦者を待つ
+SelectFrindsOvered	You can invite up to %num players	招待できるのは % 人までです。
+SelectFrinds	Select Friends	ともだちを選択する
+WaitingForPlayers	Waiting for Players...	参加者を待っています…
+SelectOpponents	Select Opponents	対戦者を選ぶ
+to	to	to
+PlayerStatusInvited	Inviting...	招待中…
+PlayerStatusCancelled	Cancelled	キャンセル
+PlayerStatusDeclined	Cancelled	キャンセル
+PlayerStatusAccepted	Joined	参加
+PlayerStatusMatching	Joined	参加
+MatchInvitation	%gametitle\n%username invites you to play %gametitle!	%gametitle\n%username が %gametitle　に招待しています！
+CreateMatchMakingRequestError	Your request cannot be processed at this time. Please try again later. 	マッチリクエストにエラーが発生しました。再度行ってください。
+AddUser	Add User	ユーザーを追加
+InputUserCode	Please input User Code.	ユーザーコードを入力してください。
+Title	Title	タイトル
+Videos	Videos	ビデオ
+VideosUploaded	 videos uploaded.	本のビデオ
+Select	Select	選択
+ConfirmDeleteVideo	Are you sure you want to delete this video?	このビデオを削除してもよいですか？
+VideoSharingEmailSubjectPrefix	Check out Play Video from 	Check out Play Video from 
+FacebookError	Cannot share to Facebook. Please check your account settings.	Facebookでシェアできませんでした。アカウント設定をご確認ください。
+TwitterError	Cannot share to Twitter. Please check your account settings.	Twitterでシェアできませんでした。アカウント設定をご確認ください。
+VideoUploadErrorAndRetry	Server connection error. Do you want to retry?	サーバー接続エラーが発生しました。再度行いますか？
+TweetError	Cannot tweet. Please try again later.	ツイートできませんでした。再度行ってください。
+TweetOvered	Your message must be less than 117 characters.	117文字まで入力できます。
+TweetIsTooLong	Your message must be less than 117 characters. Your count was 	117文字まで入力できます。現在の文字数 
+CopyToCameraRoll	Copy to Camera Roll	カメラロールにコピー
+DirectMessage	Direct Message	ダイレクトメッセージ
+DirectMessages	Direct Messages	ダイレクトメッセージ
+All	All	すべて
+Images	Images	画像
+SelectItem	Select Item...	アイテムを選択…
+TypeMessage	Type a message...	メッセージを入力…
+LeaveGroup	Leave Group	グループをぬける
+AddPeople	Add People	メンバーを追加
+Leave	Leave	グループをぬける
+Active	Active	アクティブ
+AddMember	Add Member	メンバーを追加
+Search...	Search...	探す…
+LiveHelp	Live Help	ライブヘルプ
+VideosUploadedNumber	0 Videos Uploaded	0 本のビデオ
+Uploaded	Uploaded	アップロード
+OnGroupConferenceCreated	Voice chat : username is calling	ボイスチャット：username が呼び出しています。
+NewFriendRequests	New Friend Requests	新しいフレンドリクエスト
+Events	Events	イベント
+Ongoing	Ongoing	開催中
+Upcoming	Upcoming	開催予定
+Archive	Archive	過去のイベント
+GameEvents	Game Events	ゲームイベント
+NameHasAlredyBeenTaken	This name has alredy been taken.	このユーザー名はすでに使われています。
+Game-Events	<b>Game Events</b> 	<b>ゲームイベント</b> 
+Forum-Comments	<b>Forum</b> / Comments	<b>フォーラム</b> / コメント
+Forum-Threads	<b>Forum</b> / Threads	<b>フォーラム</b> / スレッド
+Forum-Images-Videos	<b>Forum</b> / Images and Videos	<b>フォーラム</b> / 画像とビデオ
+SeeAll	See All	すべて見る
+Requests	Requests	リクエスト
+RecommendedApps	Recommended Apps	おすすめアプリ
+PreviewsBold	<b>Previews</b>	<b>プレビュー</b>
+Recommended-Events	<b>Recommended</b> Events	<b>おすすめ</b> イベント
+Recommended-Forums-Comments	<b>Recommended Forums</b> / Comments	<b>おすすめ　フォーラム</b> / コメント
+Recommended-Apps	<b>Recommended</b> Apps	<b>おすすめ</b> アプリ
+MSGfromCS	MSG from Customer Support	ユーザーサポートからのお知らせ
+Apps	Apps	アプリ
+HotApps	Hot Apps	人気のアプリ
+HotEvents	Hot Events	人気のイベント
+HotCommunities	Hot Communities	人気のコミュニティ
+Previews	Previews	プレビュー
+Connected	Connected	通話中
+VideoLoading	Loading...	ロード中...
+Stats	Stats	Stats
+UserSentAPhoto	%username sent a photo.	%usernameが写真を送信
+UserSentAVideo	%username sent a video.	%usernameがビデオを送信
+UserSentASticker	%username sent a sticker.	%usernameがステッカーを送信
+MoreInfo	More Info	もっと見る
+UserAgreement	User　Agreement	利用規約
+EULAAgree	I Agree	同意する
+EULADecline	Decline	同意しない
+Tweet	Tweet	ツイートする
+Share	Share	シェアする
+ViewAppStore	View in App Store	アップストアを見る
+ViewGooglePlayStore	View in Google Play Store	Googleプレイストアを見る
+Comments	Comments	コメント一覧
+Like	Like	Like
+GameEventShare	Hot event at “%gametitle”! 	Hot event at “%gametitle”! 
+MyVideoShare	Watch my  “%gametitle” replay! 	Watch my  “%gametitle” replay! 
+OhterVideoShare	Check this “%gametitle”  replay out! 	Watch my  “%gametitle” replay! 
+AppShare	Let’s play “%gametitle”!	Let’s play “%gametitle”!
+UploadingToYoutube	Uploading to Youtube...	Youtube にアップロード中です…
+MoreAppsThisWeek	More apps at this week.	今週のおすすめアプリ
+HotAppsThisWeek	Hot apps at this week.	今週のおすすめアプリ
+MoreAppsBy	More Apps by %developer	%developerのアプリ
+AppGallery	App Gallery	アプリギャラリー
+SeeMore	See More	もっと見る

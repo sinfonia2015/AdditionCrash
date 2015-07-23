@@ -109,7 +109,9 @@ namespace Fresvii.AppSteroid.Gui{
 
         private List<Vector2> vecs = new List<Vector2>();
 
-        private float maxSpeed = 100000f;
+        public float maxSpeed = 100000f;
+
+        public float maxSpeedScreenRate = 0.2f;
 
 		void Awake(){
 
@@ -131,6 +133,8 @@ namespace Fresvii.AppSteroid.Gui{
             }
 
             Input.ResetInputAxes();
+
+            Time.timeScale = 1.0f;
  		}
 				
 
@@ -276,7 +280,7 @@ namespace Fresvii.AppSteroid.Gui{
                 {
                     IsDragging = false;
 
-                    speed = lastDelta.magnitude / Time.deltaTime;
+                    speed = lastDelta.magnitude / Time.smoothDeltaTime;
 
                     float avSpeed = speed;
 
@@ -352,11 +356,11 @@ namespace Fresvii.AppSteroid.Gui{
             {
                 if (brake)
                 {
-                    speed -= brakeResistance * speed * resistance * Time.deltaTime;
+                    speed -= brakeResistance * speed * resistance * Time.smoothDeltaTime;
                 }
                 else
                 {
-                    speed -= speed * resistance * Time.deltaTime;
+                    speed -= speed * resistance * Time.smoothDeltaTime;
                 }
 
                 if (speed < epsilon)
@@ -372,7 +376,7 @@ namespace Fresvii.AppSteroid.Gui{
 
                 speed = Mathf.Min(maxSpeed, speed);
 
-                Delta = speed * lastVec * Time.deltaTime;
+                Delta = speed * lastVec * Time.smoothDeltaTime;
 			}
 			
             #region UnityEditor
@@ -428,7 +432,7 @@ namespace Fresvii.AppSteroid.Gui{
 #endif
             if (OnSwipe != null)
             {
-                Vector2 lastVec = lastDelta / Time.deltaTime;
+                Vector2 lastVec = lastDelta / Time.smoothDeltaTime;
 
                 if (lastVec.x > swipeSpeed)
                 {
@@ -454,7 +458,7 @@ namespace Fresvii.AppSteroid.Gui{
 
             postIsDragging = IsDragging;
 
-            Delta = new Vector2(Mathf.Clamp(Delta.x, -Screen.width * 0.2f, Screen.width * 0.2f), Mathf.Clamp(Delta.y, -Screen.height * 0.2f, Screen.height * 0.2f));
+            Delta = new Vector2(Mathf.Clamp(Delta.x, -Screen.width * maxSpeedScreenRate, Screen.width * maxSpeedScreenRate), Mathf.Clamp(Delta.y, -Screen.height * maxSpeedScreenRate, Screen.height * maxSpeedScreenRate));
         }
 
         private static float brakeResistance = 0.0f;

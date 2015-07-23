@@ -6,9 +6,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
-
-
 namespace Fresvii.AppSteroid.Gui
 {    
     public class FresviiGUIGroupConference : FresviiGUIFrame
@@ -137,7 +134,6 @@ namespace Fresvii.AppSteroid.Gui
 				Fresvii.AppSteroid.Util.DialogManager.HideProgressSpinnerDialog();
 			}
 		}
-
 
         public override void Init(Texture2D appIcon, string postFix, float scaleFactor, int guiDepth)
         {

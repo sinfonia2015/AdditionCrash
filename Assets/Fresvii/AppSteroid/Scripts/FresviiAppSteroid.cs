@@ -22,6 +22,11 @@ namespace Fresvii.AppSteroid
             FASConfig.Instance.unityVersion = 4.6f;
 #endif
 
+#if UNITY_EDITOR
+            FASConfig.Instance.appName = PlayerSettings.productName;
+#endif
+
+
 #if UNITY_PRO_LICENSE
             FASConfig.Instance.isProLicence = true;
 #else
@@ -39,7 +44,7 @@ namespace Fresvii.AppSteroid
 
             if (FASConfig.Instance.appIcon == null)
             {
-                FASConfig.Instance.appIcon = (Texture2D)Resources.Load(Fresvii.AppSteroid.Gui.FresviiGUIConstants.ResouceTextureFolderName + "/" + Fresvii.AppSteroid.Gui.FresviiGUIConstants.BackIconTextureName + "@3x", typeof(Texture2D));
+                FASConfig.Instance.appIcon = (Texture2D)Resources.Load("back_icon", typeof(Texture2D));
             }
 
             FAS.Init();

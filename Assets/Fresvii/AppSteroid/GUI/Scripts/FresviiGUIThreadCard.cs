@@ -452,7 +452,7 @@ namespace Fresvii.AppSteroid.Gui
             {
                 if (error == null)
                 {
-                    Thread.SetSubscribeParameter(false);
+                    Thread.Subscribed = false;
                 }
                 else
                 {

@@ -10,7 +10,12 @@ public class Login : MonoBehaviour {
 		FASGui.ShowGUI(FASGui.Mode.All,"start"); // Step 3
 	}
 
-	void Start() {
+	IEnumerator Start() {
+		while (!FAS.Initialized) // 初期化処理完了まで待機
+		{
+			yield return 1;
+		}
+
 		//  Get signed up users list
 		List<User> users = FASUser.LoadSignedUpUsers();
 		
@@ -30,7 +35,7 @@ public class Login : MonoBehaviour {
 					Debug.LogError(error.ToString());
 				}
 			});
-			return;
+			yield return null;
 		}
 		//  If signed up user does not exist
 		else // Step 2 - Case 1

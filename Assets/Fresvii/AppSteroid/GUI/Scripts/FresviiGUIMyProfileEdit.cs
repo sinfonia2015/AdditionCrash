@@ -272,7 +272,19 @@ namespace Fresvii.AppSteroid.Gui
                 }
                 else
                 {
-                    Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FresviiGUIText.Get("ProfileUpdateError"), delegate(bool del) { });
+                    Debug.Log(error.ToString());
+
+                    if (error.Code == (int)Fresvii.AppSteroid.Models.Error.ErrorCode.NameHasAlredyBeenTaken)
+                    {
+                        Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FresviiGUIText.Get("NameHasAlredyBeenTaken"), (del) => { });
+
+                        inputUsername = me.Name;
+                    }
+                    else
+                    {
+                        Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FresviiGUIText.Get("ProfileUpdateError"), (del) => { });
+                    }
+
                 }
             });
         }

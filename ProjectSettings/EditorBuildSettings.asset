@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/start.unity
   - enabled: 1
     path: Assets/Scenes/play.unity
-  - enabled: 0
-    path: Assets/Fresvii/Samples/AppSteroidSample-uGUI/FresviiSample-uGUI.unity
   - enabled: 1
     path: Assets/Fresvii/AppSteroid/GUI/Scenes/FresviiGUI.unity
   - enabled: 1
     path: Assets/Fresvii/AppSteroid/GUI/Scenes/FresviiGUILoading.unity
+  - enabled: 1
+    path: Assets/Fresvii/AppSteroid/UI/Scenes/AppSteroidUI.unity

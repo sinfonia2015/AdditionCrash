@@ -514,7 +514,9 @@ namespace Fresvii.AppSteroid.Gui
                             }
                             else
                             {
-                                FASVideo.Play(Comment.Video.VideoUrl);
+                                Comment.Video.User = Comment.User;
+
+                                FASVideo.Play(Comment.Video, (_video, button) => { Comment.Video = _video; });
 
                                 FASVideo.IncrementVideoPlaybackCount(Comment.Video.Id, (video, error) =>
                                 {

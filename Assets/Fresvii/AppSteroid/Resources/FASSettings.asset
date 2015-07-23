@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appName: 
   appIcon: {fileID: 2800000, guid: 153332b425284ea4c949b9300617e303, type: 3}
-  appId: 
-  secretKey: 
+  appId: aa45963673b94809a651de4ef93fc41a
+  secretKey: dc86e7cb4a82411a8990e19957e9f666
   pushNotification: 0
   registerPushRequestOnStart: 0
   gcmProjectNumber: 
@@ -27,13 +27,20 @@ MonoBehaviour:
   reloginOnResume: 1
   isProLicence: 1
   androidNotificationSmallIconBackground: {r: .5, g: .5, b: .5, a: 1}
+  apnsEnvironment: 0
   videoEnable: 1
-  orientation: 1
-  portrait: 0
-  portraitUpsideDown: 0
-  landscapeRight: 0
-  landscapeLeft: 0
+  orientation: 5
+  portrait: 1
+  portraitUpsideDown: 1
+  landscapeRight: 1
+  landscapeLeft: 1
   unityVersion: 5
   defaultUserName: username
-  officialChat: 0
-  systemLanguage: 22
+  officialChat: 1
+  lightFont: {fileID: 12800000, guid: e920431ff55ed5346b5728c8151b1c77, type: 3}
+  regularFont: {fileID: 12800000, guid: 29e9e6e475914394490264af1b86843d, type: 3}
+  semiboldFont: {fileID: 12800000, guid: 6972e66c3e29a0245aa4bec63867a05b, type: 3}
+  boldFont: {fileID: 12800000, guid: 939d5a4adbb64f647b50976c501d70f2, type: 3}
+  extraboldFont: {fileID: 12800000, guid: 2d06b90e8d476974ea2719dbd750e1d0, type: 3}
+  systemLanguage: 10
+  guiType: 0

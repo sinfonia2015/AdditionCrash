@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
-
 namespace Fresvii.AppSteroid.Gui
 {
     public class FresviiGUIDirectMessageCard : MonoBehaviour

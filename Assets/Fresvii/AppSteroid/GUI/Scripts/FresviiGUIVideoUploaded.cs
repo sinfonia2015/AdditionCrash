@@ -103,40 +103,9 @@ namespace Fresvii.AppSteroid.Gui
 
         public void OnClickVideoListButton()
         {
-            /*postGUIDepth = this.guiDepth;
-
-            if(this.guiDepth == int.MinValue)
-            {
-                this.guiDepth += 1000;
-            }
-
-            FresviiGUIVideoList.Show(null, this.guiDepth - 10, 
-			    
-			    (video, tex) =>
-	            {
-	                this.guiDepth = postGUIDepth;
-
-					videoListShowing = false;
-
-					this.gameObject.SetActive(true);
-	            }, 
-	            
-            FresviiGUIVideoList.Mode.FromUploded, 
-
-			()=>
-			{
-				FASGesture.Resume();
-
-				videoListShowing = true;
-
-				this.gameObject.SetActive(false);
-
-                Hide();
-			}
-
-			);*/
-
             FresviiGUIMyProfile.StartPage = FresviiGUIMyProfile.Page.VideoList;
+
+            Fresvii.AppSteroid.UI.AUIMyPage.StartPage = UI.AUIMyPage.Page.VideoList;
 
 			FASGui.ShowGUI(FASGui.Mode.All, FASGui.ReturnSceneName, FASGui.Mode.MyProfile);
         }
@@ -171,22 +140,27 @@ namespace Fresvii.AppSteroid.Gui
             {
                 screenWidth = Screen.width;
 
-                if (Screen.width > Screen.height)
-                {
-                    guiPivot.offsetMin = new Vector2(landscapeMargin.x, landscapeMargin.y);
+                SetPlaneMargin();
+            }
+        }
 
-                    guiPivot.offsetMax = new Vector2(-landscapeMargin.x, -landscapeMargin.y);
+        void SetPlaneMargin()
+        {
+            if (Screen.width > Screen.height)
+            {
+                guiPivot.offsetMin = new Vector2(landscapeMargin.x, landscapeMargin.y);
 
-                    canvasScaler.matchWidthOrHeight = canvasScalerMatch.y;
-                }
-                else
-                {
-                    guiPivot.offsetMin = new Vector2(portraitMargin.x, portraitMargin.y);
+                guiPivot.offsetMax = new Vector2(-landscapeMargin.x, -landscapeMargin.y);
 
-                    guiPivot.offsetMax = new Vector2(-portraitMargin.x, -portraitMargin.y);
+                canvasScaler.matchWidthOrHeight = canvasScalerMatch.y;
+            }
+            else
+            {
+                guiPivot.offsetMin = new Vector2(portraitMargin.x, portraitMargin.y);
 
-                    canvasScaler.matchWidthOrHeight = canvasScalerMatch.x;
-                }
+                guiPivot.offsetMax = new Vector2(-portraitMargin.x, -portraitMargin.y);
+
+                canvasScaler.matchWidthOrHeight = canvasScalerMatch.x;
             }
         }
 

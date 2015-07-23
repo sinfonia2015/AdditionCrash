@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainFrameLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.fresvii.sdk.unity.VideoPlayerActivity" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <VideoView
+            android:id="@+id/videoView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/TopVideoUI"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#CA000000" >
+
+            <Button
+                android:id="@+id/closeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="#00ffffff"
+                android:text="Close"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageButton
+                    android:id="@+id/ImageButtonAppIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="fill_parent"
+                    android:background="#00ffffff"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/app_icon" />
+
+                <TextView
+                    android:id="@+id/textViewAppName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/ViewTap"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <FrameLayout
+            android:id="@+id/BottomVideoUI"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="88dp"
+            android:background="#CA000000" >
+
+            <LinearLayout
+                android:layout_width="225dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageButton
+                    android:id="@+id/ImageButtonUser"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/avator60" />
+
+                <ImageView
+                    android:id="@+id/ImageViewLikeCount"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/icon_heart" />
+
+                <TextView
+                    android:id="@+id/textViewLikeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="TextView"
+                    android:textColor="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/ImageViewPlaycount"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:src="@drawable/icon_comment_view" />
+
+                <TextView
+                    android:id="@+id/TextViewPlaybackCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:text="TextView"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/ImageButtonFacebook"
+                android:layout_width="44dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:background="#00FFFFFF"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_facebook" />
+
+            <ImageButton
+                android:id="@+id/ImageButtonTwitter"
+                android:layout_width="44dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:layout_marginRight="44dp"
+                android:background="#00FFFFFF"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_twitter" />
+
+            <ImageButton
+                android:id="@+id/ImageButtonLike"
+                android:layout_width="44dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:layout_marginRight="88dp"
+                android:background="#00FFFFFF"
+                android:scaleType="center"
+                android:src="@drawable/icon_heart" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

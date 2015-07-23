@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CA70BF98-5153-7080-8BF2-FF7847329B3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace></RootNamespace>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityVersion>5.1.1p2</UnityVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_1_1;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT;GROUP_CONFERENCE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_1_1;UNITY_5_1;UNITY_5;ENABLE_NEW_BUGREPORTER;ENABLE_2D_PHYSICS;ENABLE_4_6_FEATURES;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_FRAME_DEBUGGER;ENABLE_GENERICS;ENABLE_HOME_SCREEN;ENABLE_IMAGEEFFECTS;ENABLE_LIGHT_PROBES_LEGACY;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_PHYSICS_PHYSX3;ENABLE_PLUGIN_INSPECTOR;ENABLE_SHADOWS;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_UNET;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_LICENSE;ENABLE_AUDIOMIXER_SUSPEND;ENABLE_EDITOR_METRICS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;INCLUDE_IL2CPP;INCLUDE_DIRECTX12;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_LOCALIZATION;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_TEXTUREID_MAP;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_MONO;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT;MOBILE_INPUT;GROUP_CONFERENCE</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="AppSteroidWithVoiceChatAndroid">
+      <HintPath>Assets\Plugins\Android\AppSteroidWithVoiceChatAndroid.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\ActionSheet.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\ActivityIndicator.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FASGesture.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUI.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIAddCommentBottomMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIBlocker.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIButton.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIChat.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIChatBalloon.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIChatTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIColorPalette.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUICommentCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIConstants.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUICreateThread.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUICreateThreadTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIDirectMessage.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIDirectMessageCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIDirectMessageList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIDirectMessageListTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIDirectMessageTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIEditGroupMember.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIEditGroupMemberCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIEditGroupMemberTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIForum.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIForumCreateThreadForm.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIForumTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFrame.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFriendCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFriendList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFriendListTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFriendRequestCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFriendRequests.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIFriendRequestsTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupConference.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupConferenceTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMemberAdd.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMemberAddTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMessage.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMessageCreate.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMessageCreateFriendCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMessageCreateTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIGroupMessageTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIImageViewer.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUILabel.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUILeaderboard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUILeaderboardTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMatchMaking.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMatchMakingTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMatchPlayerCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIModalFrame.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMyProfile.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMyProfileEdit.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMyProfileEditTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIMyProfileTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIPopUpShield.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIPopUpTextInput.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIRangeSlider.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUISceneLoading.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIScoreCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIScrollviewSlider.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUISegmentedControl.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUISelectFriends.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUISelectFriendsTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIShareVideo.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUITabBar.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIThread.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIThreadBottomMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIThreadCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIThreadPopUpMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIThreadTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIToggleButton.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIUploadedVideo.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIUserProfile.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIUserProfileTopMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIUtility.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIVideoCard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIVideoList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIVideoListTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIVideoSharing.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIVideoUploaded.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIView.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIViewForum.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIViewGroupConference.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIViewGroupMessage.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIViewLeaderboard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIViewMatchMaking.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\FresviiGUIViewMyProfile.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\GuiTextSetter.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\LoadingSpinner.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\PopOverBalloonMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\GUI\Scripts\PopUpBalloonMenu.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\Scripts\FASSettings.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\Scripts\FresviiAppSteroid.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIActionSheet.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIAddGroupMember.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIAppDetail.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIAppIcon.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIAppsPreviewCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIBackToGameButton.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIBanner.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIBannerCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICanvasScaleManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICellDeleteAnimator.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIClipImageSizeControl.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommentGridCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommunityTop.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommunityTopBanner.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommunityTopBannerManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommunityTopCommentCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommunityTopGameEventCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICommunityTopImagessAndVideosCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUICreateThread.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIDirectMessageCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIDirectMessageListCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIDirectMessages.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIEventCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIEventboard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIEventboardScrollView.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIEvents.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIEventsScrollView.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFadeIn.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFadeSetActive.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIForum.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIForumCommentCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIForumScrollView.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIForumThreadCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFrame.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFriendList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFriendListCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFriendRequest.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFriendRequestCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFriendRequestScrollView.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIFriendRequestedCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGameEvent.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGameEventboardCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGridLayoutHelper.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGridLayoutManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGridSizeManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupConference.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupIcon.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupInfo.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupMemberCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupMessageCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIImageViewer.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIInputComment.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIInputMessage.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIKeyboardInput.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementHeightCalc.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementHelper.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementSizeControl.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElemetTextSizeFitter.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutRectTransformHelper.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILeaderboard.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILeaderboardList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILeaderboardListCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILeaderboardScrollView.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILoadingSpinner.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILongPressEventTrigger.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMatchMaking.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMatchmakingPlayerCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMatchmakingSelectFriends.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMatchmakingSelectFriendsCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMessageCreate.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMessageDateTimeLine.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMessageFriendCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMessageList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMessageListCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMessages.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMoreApps.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMyGroupMessageCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMyPage.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIMyProfileEdit.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUINavigationBar.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIOnClickHideGameObject.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIOtherGroupMessageCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIPageViewSender.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIPinchDetector.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIPlayerScoreCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIPopUpBalloon.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIPreviewDetailCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIPreviewVideoList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIProfileBgImageHelper.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIProgressBar.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIRawImageTextureSetter.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIRecommendedAppCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIRecommendedAppLayoutCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIRecommendedApps.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIRecommendedAppsDetailCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIRectTransformHeightCalc.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIScrollPass.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIScrollRect.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIScrollViewContents.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIScrollViewItemLayout.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIScrollViewPullReflesh.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIScrollViewPullRefleshHorizontal.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUISegmentedControl.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIStatCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIStickerCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIStickerPicker.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIStickerSelector.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIStickerSetCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIStickerSetSelector.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITabBadge.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITabBar.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITabBarManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITextImageButton.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITextLayoutElementManager.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITextSetter.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIThread.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIToggleButton.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIToggleButtonGroup.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUITouchScreenKeyboardLine.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIUserAgreement.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIUserPage.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIUserSearch.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIUserSearchCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIUtility.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIVideoList.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIVideoListCell.cs" />
+    <Compile Include="Assets\Fresvii\Samples\AppSteroidSample-uGUI\AppSteroidSampleUGUI.cs" />
+    <Compile Include="Assets\Fresvii\Samples\AppSteroidSample-uGUI\AppSteroidSampleUGUISingUpDialog.cs" />
+    <Compile Include="Assets\Fresvii\Samples\FresviiSampleByUnityGUI\FresviiSample.cs" />
+    <Compile Include="Assets\Fresvii\Samples\FresviiSampleByUnityGUI\MatchMakingObserver.cs" />
+    <Compile Include="Assets\Fresvii\Samples\MatchMakingNetworkConnect\NetworkConnectByMatchMakingSample.cs" />
+    <Compile Include="Assets\Fresvii\Samples\MatchMakingSampleGame\MatchMakingMultiPlayerSample.cs" />
+    <Compile Include="Assets\Fresvii\Samples\MatchMakingSampleGame\Square.cs" />
+    <Compile Include="Assets\Fresvii\Samples\MatchMakingSampleGame\TicTacToe.cs" />
+    <Compile Include="Assets\Fresvii\Samples\SimpleSample\FresviiSimpleSample.cs" />
+    <Compile Include="Assets\Fresvii\Samples\VoiceChat\VoiceChatAcceptSampleGUI.cs" />
+    <Compile Include="Assets\Fresvii\Samples\VoiceChat\VoiceChatCallSampleGUI.cs" />
+    <Compile Include="Assets\Fresvii\XcodeAPI\PBXObjects.cs" />
+    <Compile Include="Assets\Fresvii\XcodeAPI\PBXProject.cs" />
+    <Compile Include="Assets\Fresvii\XcodeAPI\PBXSections.cs" />
+    <Compile Include="Assets\Fresvii\XcodeAPI\PBXUtils.cs" />
+    <Compile Include="Assets\Fresvii\XcodeAPI\PlistParser.cs" />
+    <Compile Include="Assets\Fresvii\iTween\Plugins\iTween.cs" />
+    <Compile Include="Assets\Scripts\BtnControl.cs" />
+    <Compile Include="Assets\Scripts\GameControler.cs" />
+    <Compile Include="Assets\Scripts\Login.cs" />
+    <Compile Include="Assets\Scripts\StartControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Fresvii\AppSteroid\GUI\Shaders\ClipAlpha.shader" />
+    <None Include="Assets\Fresvii\AppSteroid\GUI\Shaders\MaskAlpha.shader" />
+    <None Include="Assets\Fresvii\AppSteroid\GUI\Shaders\Unlit-Alpha-Overlay.shader" />
+    <None Include="Assets\Fresvii\AppSteroid\UI\Resources\AppSteroidLanguages.txt" />
+    <None Include="Assets\Fresvii\AppSteroid\UI\Shaders\UIMaskAlpha.shader" />
+    <None Include="Assets\Fresvii\AppSteroid\UI\Shaders\Unlit-Alpha-Overlay.shader" />
+    <None Include="Assets\Fresvii\Editor\AndroidManifestDefault.xml" />
+    <None Include="Assets\Fresvii\Samples\AndroidManifestSample.xml" />
+    <None Include="Assets\Fresvii\Samples\MatchMakingSampleGame\Unlit-Alpha-Color.shader" />
+    <None Include="Assets\Fresvii\iTween\ReadMe!\ReadMe!.txt" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\res\layout\aui_videoplayer.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
+</Project>

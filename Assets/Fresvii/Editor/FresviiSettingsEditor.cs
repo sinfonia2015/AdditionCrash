@@ -83,11 +83,11 @@ namespace Fresvii.AppSteroid.Gui
             
             EditorGUILayout.LabelField("AppSteroid Settings", EditorStyles.boldLabel);
 
+            EditorGUILayout.LabelField("Version " + FAS.Version);
+
             EditorGUILayout.Space();
 
             #region app settings
-
-            instance.appIcon = (Texture2D)EditorGUILayout.ObjectField(appIconLabel, instance.appIcon, typeof(Texture2D), false);
 
             instance.appId = EditorGUILayout.TextField(appIdLabel, instance.appId);
 
@@ -95,9 +95,23 @@ namespace Fresvii.AppSteroid.Gui
 
             instance.environment = (FAS.ProvisioningEnvironment)EditorGUILayout.EnumPopup("Server Environment", instance.environment);
 
-            instance.defaultUserName = EditorGUILayout.TextField("Default user name", instance.defaultUserName);
-
             EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("AppSteroid GUI settings", EditorStyles.boldLabel);
+
+            instance.guiType = (FAS.GuiType)EditorGUILayout.EnumPopup("Gui type", instance.guiType);
+
+            instance.appIcon = (Texture2D)EditorGUILayout.ObjectField(appIconLabel, instance.appIcon, typeof(Texture2D), false);
+
+            instance.lightFont = (Font)EditorGUILayout.ObjectField("Light font", instance.lightFont, typeof(Font));
+
+            instance.regularFont = (Font)EditorGUILayout.ObjectField("Regular font", instance.regularFont, typeof(Font));
+
+            instance.semiboldFont = (Font)EditorGUILayout.ObjectField("Semibold font", instance.semiboldFont, typeof(Font));
+
+            instance.boldFont = (Font)EditorGUILayout.ObjectField("Bold font", instance.boldFont, typeof(Font));
+
+            instance.extraboldFont = (Font)EditorGUILayout.ObjectField("Extrabold font", instance.extraboldFont, typeof(Font));
 
             EditorGUILayout.LabelField("AppSteroid GUI orientation", EditorStyles.boldLabel);
 

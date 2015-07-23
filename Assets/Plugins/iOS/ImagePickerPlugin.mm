@@ -237,19 +237,121 @@ static ImagePickerPlugin *pInstance = nil;
     else
     {
         loadedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        
         if (loadedImage == nil) {
             loadedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
         }
+        
         if (loadedImage) {
             [loadedImage retain];
         }
         
-        ImagePicker_callback(strCallbackResultMessage_Loaded);
+        UIImage *resizedImage;
+        
+        if(loadedImage.size.width > loadedImage.size.height && loadedImage.size.width > 1024){
+            
+            float scale = 1024.0f / loadedImage.size.width;
+            
+            CGSize resizedSize = CGSizeMake(loadedImage.size.width * scale, loadedImage.size.height * scale);
+            
+            UIGraphicsBeginImageContext(resizedSize);
+            
+            [loadedImage drawInRect:CGRectMake(0, 0, resizedSize.width, resizedSize.height)];
+            
+            resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            
+            UIGraphicsEndImageContext();
+        }
+        else if(loadedImage.size.width < loadedImage.size.height && loadedImage.size.height > 1024){
+            
+            float scale = 1024.0f / loadedImage.size.height;
+            
+            CGSize resizedSize = CGSizeMake(loadedImage.size.width * scale, loadedImage.size.height * scale);
+            
+            UIGraphicsBeginImageContext(resizedSize);
+            
+            [loadedImage drawInRect:CGRectMake(0, 0, resizedSize.width, resizedSize.height)];
+            
+            resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            
+            UIGraphicsEndImageContext();
+        }
+        else{
+            resizedImage = loadedImage;
+        }
+        
+        UIImage *rotatedImage;
+        
+        if (resizedImage.imageOrientation == UIImageOrientationDown) {
+            rotatedImage = [UIImage imageWithCGImage:[[self class] CGImageRotatedByAngle:[[self class] CGImageRotatedByAngle:resizedImage.CGImage angle:90] angle:90]];
+        }
+        else if(resizedImage.imageOrientation == UIImageOrientationLeft){
+            rotatedImage = [UIImage imageWithCGImage:[[self class] CGImageRotatedByAngle:resizedImage.CGImage angle:90]];
+        }else if(resizedImage.imageOrientation == UIImageOrientationRight){
+            rotatedImage = [UIImage imageWithCGImage:[[self class] CGImageRotatedByAngle:resizedImage.CGImage angle:-90]];
+        }else{
+            rotatedImage = [UIImage imageWithCGImage:resizedImage.CGImage];
+        }
+        
+        NSData *imageData = UIImageJPEGRepresentation(rotatedImage, 1.0);
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"PickedImage.jpg"];
+        
+        //file name
+        NSLog(@"filePath %@",filePath);
+        
+        [imageData writeToFile:filePath atomically:YES];
+        
+        //ImagePicker_callback(strCallbackResultMessage_Loaded);
+        
+        ImagePicker_callback([filePath UTF8String]);
         
         [self hide];
         
         ImagePicker_callback(strCallbackResultMessage_Hidden);
     }
+}
+
++ (CGImageRef)CGImageRotatedByAngle:(CGImageRef)imgRef angle:(CGFloat)angle
+{
+    CGFloat angleInRadians = angle * (M_PI / 180);
+    CGFloat width = CGImageGetWidth(imgRef);
+    CGFloat height = CGImageGetHeight(imgRef);
+    
+    CGRect imgRect = CGRectMake(0, 0, width, height);
+    CGAffineTransform transform = CGAffineTransformMakeRotation(angleInRadians);
+    CGRect rotatedRect = CGRectApplyAffineTransform(imgRect, transform);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef bmContext = CGBitmapContextCreate(NULL,
+                                                   rotatedRect.size.width,
+                                                   rotatedRect.size.height,
+                                                   8,
+                                                   0,
+                                                   colorSpace,
+                                                   (CGBitmapInfo)kCGImageAlphaPremultipliedFirst);
+    CGContextSetInterpolationQuality(bmContext, kCGInterpolationNone);
+    CGColorSpaceRelease(colorSpace);
+    CGContextTranslateCTM(bmContext,
+                          +(rotatedRect.size.width/2),
+                          +(rotatedRect.size.height/2));
+    CGContextRotateCTM(bmContext, angleInRadians);
+    CGContextTranslateCTM(bmContext,
+                          -(rotatedRect.size.height/2),
+                          -(rotatedRect.size.width/2));
+    CGContextDrawImage(bmContext, CGRectMake(0, 0,
+                                             rotatedRect.size.height,
+                                             rotatedRect.size.width),
+                       imgRef);
+    
+    CGImageRef rotatedImage = CGBitmapContextCreateImage(bmContext);
+    CFRelease(bmContext);
+    bmContext = nil;
+    
+    return rotatedImage;
 }
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController*)picker

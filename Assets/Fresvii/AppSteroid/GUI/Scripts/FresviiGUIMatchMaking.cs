@@ -65,7 +65,14 @@ namespace Fresvii.AppSteroid.Gui
 
         public Texture2D textureTagYou;
 
-        public static bool IsShowing = false;
+        private static bool isShowing;
+
+        public static bool IsShowing
+        {
+            get { return isShowing || Fresvii.AppSteroid.UI.AUIMatchMaking.IsShowing; }
+
+            set { isShowing = value; }
+        }
 
         public override void Init(Texture2D appIcon, string postFix, float scaleFactor, int guiDepth)
         {
@@ -595,7 +602,7 @@ namespace Fresvii.AppSteroid.Gui
 
                     if (!playerExists) // this card player was cancelled
                     {
-                        card.Player.Status = Fresvii.AppSteroid.Models.Player.Statuses.Cancelled;
+                        card.Player.State = Fresvii.AppSteroid.Models.Player.Status.Cancelled;
 
                         if (recipient == FASMatchMaking.Recipient.Everyone)
                         {

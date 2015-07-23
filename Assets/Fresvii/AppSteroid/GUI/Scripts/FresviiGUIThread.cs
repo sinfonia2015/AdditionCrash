@@ -1113,7 +1113,6 @@ namespace Fresvii.AppSteroid.Gui
 
                                 card.Comment.Text = origText;
                             }
-
                         });
                     });
                 }
@@ -1232,7 +1231,7 @@ namespace Fresvii.AppSteroid.Gui
                     {
                         FASForum.ReportComment(commentId, (ForumService.ReportKind)i, "", (comment, error) => 
                         {
-                            if (error != null && error.Code != (int)Fresvii.AppSteroid.Models.Error.ErrorCode.ArgumentError) // 402
+                            if (error != null && error.Code != 402)
                             {
                                 Debug.LogError("ReportComment :" + error.ToString());
 

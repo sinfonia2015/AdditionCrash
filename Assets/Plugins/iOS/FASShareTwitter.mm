@@ -74,6 +74,45 @@ extern "C"
 			UnitySendMessage("FASTwitterObserver", "OnTwitterSharingCompleted", "Error");
         }
     }
+    
+    void _FasShareTwitterWithUI(const char *text, const char *url)
+    {
+        NSString* strText = [NSString stringWithCString:text encoding:NSUTF8StringEncoding];
+        
+        NSString* strURL = [NSString stringWithCString: url encoding:NSUTF8StringEncoding];
+        
+        if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+        {
+            SLComposeViewController *composeVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+
+            [composeVC setCompletionHandler:^(SLComposeViewControllerResult result) {
+                dispatch_async(dispatch_get_main_queue(), ^
+                               {
+                                   switch(result)
+                                   {
+                                       case SLComposeViewControllerResultCancelled:
+                                       default:
+                                           UnitySendMessage("FASTwitterObserver", "OnTwitterSharingCompleted", "Cancel");
+                                           break;
+                                           
+                                       case SLComposeViewControllerResultDone:
+                                           UnitySendMessage("FASTwitterObserver", "OnTwitterSharingCompleted", "Done");
+
+                                           break;
+                                   }
+                               });            }];
+            
+            [composeVC setInitialText:strText];
+            
+            [composeVC addURL:[NSURL URLWithString:strURL]];
+            
+            [UnityGetGLViewController() presentViewController:composeVC animated:YES completion:nil];
+        }
+        else
+        {
+            UnitySendMessage("FASTwitterObserver", "OnTwitterSharingCompleted", "Error");
+        }
+    }
 
 	bool _FasShareTwitterEnable(){
 	
