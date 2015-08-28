@@ -15,8 +15,7 @@ namespace Fresvii.AppSteroid.UI
 
         public Texture2D videoRemoved;
 
-        [HideInInspector]
-        public AUIMessages auiMessages { get; set; }
+        private bool settle;
 
         void Awake()
         {
@@ -27,7 +26,8 @@ namespace Fresvii.AppSteroid.UI
         {
             AUIManager.OnScreenSizeChanged += OnScreenSizeChanged;
 
-            //StartCoroutine(UpdateUpdatedAt());
+            if(settle)
+                StartCoroutine(ResetLayout());
         }
 
         void OnDisable()
@@ -98,11 +98,20 @@ namespace Fresvii.AppSteroid.UI
             createdAt.text = GroupMessage.CreatedAt.ToString("HH:mm");
 
             SetLayout();
+
+            settle = true;
         }
 
         void OnScreenSizeChanged()
         {
-            //SetLayout();
+            StartCoroutine(ResetLayout());
+        }
+
+        IEnumerator ResetLayout()
+        {
+            yield return new WaitForEndOfFrame();
+
+            SetGroupMessage(this.GroupMessage);
         }
 
         /*IEnumerator UpdateUpdatedAt()

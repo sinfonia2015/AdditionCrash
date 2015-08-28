@@ -34,6 +34,8 @@ namespace Fresvii.AppSteroid.UI
 
                 if (textSetter != null)
                     textSetter.Truncate();
+
+                text = textUi.text;
             }
 		}
 		

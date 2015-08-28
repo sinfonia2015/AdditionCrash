@@ -40,6 +40,18 @@ namespace Fresvii.AppSteroid.UI
 
         private GameObject requestCell;
 
+        public GameObject buttonSearchObj;
+
+        void Awake()
+        {
+            AUIUserPage.OnUnfriended += OnUnfriended;
+        }
+
+        void OnDestroy()
+        {
+            AUIUserPage.OnUnfriended -= OnUnfriended;
+        }
+
         void OnEnable()
         {
             AUIManager.OnEscapeTapped += BackPage;
@@ -60,21 +72,23 @@ namespace Fresvii.AppSteroid.UI
 
         void ClearCells()
         {
-            contents.Clear();
+            //contents.Clear();
 
             if (requestCell != null)
             {
+                contents.RemoveItem(requestCell.GetComponent<RectTransform>());
+
                 Destroy(requestCell);
 
                 requestCell = null;
             }
 
-            foreach (var cell in friendCells)
+            /*foreach (var cell in friendCells)
             {
                 Destroy(cell.gameObject);
             }
 
-            friendCells.Clear();
+            friendCells.Clear();*/
         }
 
         void OnPullUpReflesh()
@@ -93,20 +107,12 @@ namespace Fresvii.AppSteroid.UI
             }
         }
 
-        void Awake()
-        {
-            contents.padding.bottom += (AUITabBar.Instance.gameObject.activeInHierarchy) ? AUITabBar.Instance.GetHeight() : 0;
-        }
-
         // Use this for initialization
         IEnumerator Init()
         {
-            while (!AUIManager.Instance.Initialized)
-            {
-                yield return 1;
-            }
+            buttonSearchObj.SetActive(false);
 
-            while (GetComponent<AUIFrame>().Animating)
+            while (!AUIManager.Instance.Initialized)
             {
                 yield return 1;
             }
@@ -116,10 +122,22 @@ namespace Fresvii.AppSteroid.UI
                 yield return 1;
             }
 
+            if (User.Id == FAS.CurrentUser.Id)
+            {
+                buttonSearchObj.SetActive(true);
+            }
+
+            while (GetComponent<AUIFrame>().Animating)
+            {
+                yield return 1;
+            }
+
             FASFriendship.GetUserFriendList(User.Id, OnGetUserFriendList);
 
             if(User.Id == FAS.CurrentUser.Id)
             {
+                buttonSearchObj.SetActive(true);
+
                 FASFriendship.GetFriendshipRequestedUsersList(User.Id, (friends, meta, error) =>
                 {
                     if (meta.TotalCount > 0)
@@ -147,7 +165,9 @@ namespace Fresvii.AppSteroid.UI
             {
                 if (e != null)
                     Debug.LogError(e.ToString());
-            });    
+            });
+
+            backButtonText.text = User.Name;
         }
 
         void OnGetUserFriendList(IList<Fresvii.AppSteroid.Models.Friend> friends, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
@@ -176,6 +196,8 @@ namespace Fresvii.AppSteroid.UI
             {
                 this.listMeta = meta;
             }
+
+            title.text = this.listMeta.TotalCount.ToString() + " " + FASText.Get("Friends");
 
             bool added = false;
 
@@ -325,8 +347,6 @@ namespace Fresvii.AppSteroid.UI
 
             friendSearch.parentFrame = this.frame;
 
-            friendSearch.backButtonText.text = FASText.Get("Friends");
-
             friendSearch.transform.SetParent(transform.parent, false);
 
             friendSearch.transform.SetAsLastSibling();
@@ -337,6 +357,22 @@ namespace Fresvii.AppSteroid.UI
             {
                 this.gameObject.SetActive(false);
             });
+        }
+
+        public void OnUnfriended(Fresvii.AppSteroid.Models.User user)
+        {
+            AUIFriendListCell cell = friendCells.Find(x => x.Friend.Id == user.Id);
+
+            if (cell != null)
+            {
+                friendCells.Remove(cell);
+
+                contents.RemoveItem(cell.GetComponent<RectTransform>());
+
+                Destroy(cell.gameObject);
+
+                contents.ReLayout();
+            }
         }
     }
 }

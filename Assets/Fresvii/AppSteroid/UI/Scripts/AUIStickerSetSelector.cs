@@ -39,8 +39,6 @@ namespace Fresvii.AppSteroid.UI
             pullReflesh.OnPullLeftReflesh -= OnPullLeftReflesh;
         }
 
-        private bool pullRefleshing = false;
-
         void OnPullLeftReflesh()
         {
             if (this.listMeta != null && this.listMeta.NextPage.HasValue)

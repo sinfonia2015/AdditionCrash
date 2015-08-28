@@ -232,7 +232,7 @@ namespace Fresvii.AppSteroid.Gui
         {
             userIconLoading = true;
 
-            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(User.ProfileImageUrl, true, delegate(Texture2D texture)
+            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(User.ProfileImageUrl, true, false, false, delegate(Texture2D texture)
             {
                 userIcon = texture;
 

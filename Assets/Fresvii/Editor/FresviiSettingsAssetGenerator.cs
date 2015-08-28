@@ -31,5 +31,10 @@ public class FresviiSettingsAssetGenerator : MonoBehaviour
                 AssetDatabase.CreateAsset(fasSettings, fullPath);
             }
         }
+
+        if (string.IsNullOrEmpty(fasSettings.appName))
+        {
+            fasSettings.appName = PlayerSettings.productName;
+        }
     }
 }

@@ -19,8 +19,6 @@ namespace Fresvii.AppSteroid.UI
 
         public AUICellDeleteAnimator cellDeleteAnimator;
 
-        private AUIFriendRequestScrollView.Mode mode;
-
         public GameObject line, buttonNotNow;
 
         public void SetFriend(Fresvii.AppSteroid.Models.Friend friend, AUIFriendRequestScrollView parentNode, AUIFriendRequestScrollView.Mode mode)
@@ -28,8 +26,6 @@ namespace Fresvii.AppSteroid.UI
             this.Friend = friend;
 
             this.parentNode = parentNode;
-
-            this.mode = mode;
 
             line.SetActive(mode == AUIFriendRequestScrollView.Mode.Requested);
 

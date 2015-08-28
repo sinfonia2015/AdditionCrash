@@ -100,7 +100,7 @@ namespace Fresvii.AppSteroid.UI
             {
                 userIcon.Set(Thread.User.ProfileImageUrl);
 
-                userName.text = Thread.User.Name;
+                userName.text = (string.IsNullOrEmpty(Thread.Title)) ? Thread.User.Name : Thread.Title;
 
                 likeCount.text = Thread.Comment.LikeCount.ToString();
 
@@ -218,7 +218,7 @@ namespace Fresvii.AppSteroid.UI
             {
                 if (Thread != null)
                 {
-                    updatedAt.text = AUIUtility.CurrentTimeSpan(Thread.UpdateAt);
+                    updatedAt.text = AUIUtility.CurrentTimeSpan(Thread.CreatedAt);
 
                     yield return new WaitForSeconds(60f);
                 }
@@ -270,8 +270,7 @@ namespace Fresvii.AppSteroid.UI
             {
                 if (error != null)
                 {
-                    if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error)
-                        Debug.LogError(error.ToString());
+                    Debug.LogError(error.ToString());
                 }
                 else
                 {
@@ -279,18 +278,6 @@ namespace Fresvii.AppSteroid.UI
                 }
 
             });
-
-            if (Thread.Comment.Video != null)
-            {
-                FASVideo.LikeVideo(Thread.Comment.Video.Id, (video, error) =>
-                {
-                    if (error != null)
-                    {
-                        if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error)
-                            Debug.LogError(error.ToString());
-                    }
-                });
-            }
         }
 
         IEnumerator ThreadUnlikeCoroutine()
@@ -301,24 +288,9 @@ namespace Fresvii.AppSteroid.UI
             {
                 if (error != null)
                 {
-                    if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error)
-                        Debug.LogError(error.ToString());
+                    Debug.LogError(error.ToString());
                 }
-
             });
-
-            if (Thread.Comment.Video != null)
-            {
-                FASVideo.UnlikeVideo(Thread.Comment.Video.Id, (video, error) =>
-                {
-                    if (error != null)
-                    {
-                        if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error)
-                            Debug.LogError(error.ToString());
-                    }
-                });
-            }
-
         }
 
         public RectTransform buttonSubscribeCenter;
@@ -342,6 +314,8 @@ namespace Fresvii.AppSteroid.UI
 
             if (this.Thread.User.Id == FAS.CurrentUser.Id)
             {
+                buttons.Add(FASText.Get("EditTitle"));
+
                 buttons.Add(FASText.Get("Delete"));
             }
 
@@ -356,6 +330,37 @@ namespace Fresvii.AppSteroid.UI
                 else if (selected == FASText.Get("Subscribe"))
                 {
                     Subscribe();
+                }
+                else if (selected == FASText.Get("EditTitle"))
+                {
+                    buttonSubscribe.interactable = true;
+
+                    AUIKeyboardInput.Show(Thread.Title, false, (text) =>
+                    {
+                        string origTitle = Thread.Title;
+
+                        Thread.Title = text;
+
+                        SetThraed(Thread);
+
+                        FASForum.EditThreadTitle(Thread.Id, text, (thread, error) =>
+                        {
+                            if (error == null)
+                            {
+                                this.Thread = thread;
+                            }
+                            else
+                            {
+                                Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel(FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"));
+
+                                Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), (del)=>{ });
+
+                                Thread.Title = origTitle;
+                            }
+
+                            SetThraed(Thread);
+                        });
+                    });
                 }
                 else if (selected == FASText.Get("Delete"))
                 {

@@ -31,6 +31,7 @@
 - (IBAction) pushedTwitterButton:(id) sender;
 - (IBAction) pushedUserButton:(id) sender;
 - (IBAction) pushedAppButton:(id) sender;
+- (IBAction) pushedLargePlayButton:(id) sender;
 
 + (AVPlayerViewController *)controller:(NSURL *)videoUrl;
 

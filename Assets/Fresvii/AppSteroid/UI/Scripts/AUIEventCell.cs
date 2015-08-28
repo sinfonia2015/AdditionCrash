@@ -43,7 +43,6 @@ namespace Fresvii.AppSteroid.UI
 
 			if(contents != null)
 				contents.ReLayout();
-
         }
 
         void OnDisable()
@@ -101,7 +100,6 @@ namespace Fresvii.AppSteroid.UI
             yield return new WaitForEndOfFrame();
 
             SetLayout();
-
         }
 
         public void SetClipImage(Texture2D texture)
@@ -132,7 +130,13 @@ namespace Fresvii.AppSteroid.UI
             {
                 if (!string.IsNullOrEmpty(GameEvent.WebSiteUrl))
                 {
-                    Application.OpenURL(GameEvent.WebSiteUrl);
+                    FASUtility.SendPageView("pv.community.events.show", GameEvent.Id, System.DateTime.UtcNow, (e) =>
+                    {
+                        if (e != null)
+                            Debug.LogError(e.ToString());
+
+                        Application.OpenURL(GameEvent.WebSiteUrl);
+                    });
                 }
                 else
                 {

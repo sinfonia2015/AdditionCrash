@@ -19,12 +19,6 @@ namespace Fresvii.AppSteroid.UI
 
         public GameObject prfbAUICommunityTopImagesAndVideosCell;
 
-        private Fresvii.AppSteroid.Models.ListMeta threadsListMeta;
-
-        private Fresvii.AppSteroid.Models.ListMeta gameEventListMeta;
-
-        private IList<Fresvii.AppSteroid.Models.GameEvent> Events;
-
         private List<AUICommunityTopImagessAndVideosCell> imagesAndVideosCells = new List<AUICommunityTopImagessAndVideosCell>();
 
         private List<AUICommunityTopGameEventCell> gameEventCells = new List<AUICommunityTopGameEventCell>();
@@ -47,6 +41,10 @@ namespace Fresvii.AppSteroid.UI
 
         public Text gameEventLabel, forumLabel, threadLabel;
 
+        public GameObject gameEvents;
+
+        public GameObject[] recommendAppsObjects;
+
         // Use this for initialization
         void OnEnable()
         {
@@ -55,15 +53,31 @@ namespace Fresvii.AppSteroid.UI
             SortEvnets();
 
             imagesAndVideosContents.ReLayout();
-
-            gameEventContents.ReLayout();
-
+            
             StartCoroutine(Init());
         }
 
         void OnDisable()
         {
             AUIManager.Instance.HideLoadingSpinner();
+        }
+
+        public Graphic fadeEvents;
+
+        public GameObject gameEventsLoadingSpinner;
+
+        void Awake()
+        {
+            fadeEvents.gameObject.SetActive(true);
+
+            fadeEvents.CrossFadeAlpha(1f, 0f, true);
+
+            gameEvents.SetActive(false);
+
+            foreach (var obj in recommendAppsObjects)
+            {
+                obj.SetActive(false);
+            }
         }
 
         IEnumerator Init()
@@ -85,13 +99,19 @@ namespace Fresvii.AppSteroid.UI
                 yield return 1;
             }
 
+            FASLeaderboard.GetEventList(Fresvii.AppSteroid.Models.GameEvent.Status.Ongoing, OnGetEventList);
+
+            yield return 1;
+
             Fresvii.AppSteroid.FASForum.GetForumThreads(OnGetForumThreads);
 
             string query = "{\"where\":[{\"column\": \"video_id\", \"operator\": \"!=\", \"value\": null},{\"column\": \"image\",    \"operator\": \"!=\", \"value\": null}],\"operation\": \"any\",\"order\": {\"created_at\": \"desc\"}}";
 
+            yield return 1;
+
             Fresvii.AppSteroid.FASForum.GetCommentList(query, OnGetImageAndVideoComments);
 
-            FASLeaderboard.GetEventList(Fresvii.AppSteroid.Models.GameEvent.Status.Ongoing, OnGetEventList);
+            yield return 1;
 
             FASUtility.GetDeveloperAppList(1, OnGetAppList);
         }
@@ -111,6 +131,8 @@ namespace Fresvii.AppSteroid.UI
 
         void OnGetEventList(IList<Fresvii.AppSteroid.Models.GameEvent> events, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
+            gameEventsLoadingSpinner.SetActive(false);
+
             if (this == null || this.enabled == false)
             {
                 return;
@@ -126,9 +148,10 @@ namespace Fresvii.AppSteroid.UI
                 return;
             }
 
-            this.Events = events;
-
-            this.gameEventListMeta = meta;
+            if (meta.TotalCount > 0)
+            {
+                gameEvents.SetActive(true);
+            }
 
             foreach (Fresvii.AppSteroid.Models.GameEvent gameEvent in events)
             {
@@ -136,23 +159,43 @@ namespace Fresvii.AppSteroid.UI
 
                 if (cell != null)
                 {
-                    cell.SetGameEvent(gameEvent, this);
-
-                    return;
+                    cell.SetGameEvent(gameEvent, (ge) => 
+                    {
+                        GoToGameEvent(ge);
+                    });
                 }
+                else
+                {
+                    var item = ((GameObject)Instantiate(prfbGameEventCell)).GetComponent<RectTransform>();
 
-                var item = ((GameObject)Instantiate(prfbGameEventCell)).GetComponent<RectTransform>();
-                
-                gameEventContents.AddItem(item);
+                    gameEventContents.AddItem(item);
 
-                cell = item.GetComponent<AUICommunityTopGameEventCell>();
+                    cell = item.GetComponent<AUICommunityTopGameEventCell>();
 
-                cell.SetGameEvent(gameEvent, this);
+                    cell.SetGameEvent(gameEvent, (ge) =>
+                    {
+                        GoToGameEvent(ge);
+                    });
 
-                gameEventCells.Add(cell);
+                    gameEventCells.Add(cell);
+                }
             }
 
             SortEvnets();
+
+            if (fadeEvents.gameObject.activeSelf)
+            {
+                StartCoroutine(FadeOutMask(fadeEvents));
+            }
+        }
+
+        IEnumerator FadeOutMask(Graphic g)
+        {
+            g.CrossFadeAlpha(0f, 0.3f, true);
+
+            yield return new WaitForSeconds(0.3f);
+
+            g.gameObject.SetActive(false);
         }
 
         private void OnGetImageAndVideoComments(IList<Fresvii.AppSteroid.Models.Comment> comments, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
@@ -179,19 +222,19 @@ namespace Fresvii.AppSteroid.UI
                 if (cell != null)
                 {
                     cell.SetComment(comment, this);
-
-                    return;
                 }
+                else
+                {
+                    var item = ((GameObject)Instantiate(prfbAUICommunityTopImagesAndVideosCell)).GetComponent<RectTransform>();
 
-                var item = ((GameObject)Instantiate(prfbAUICommunityTopImagesAndVideosCell)).GetComponent<RectTransform>();
+                    imagesAndVideosContents.AddItem(item);
 
-                imagesAndVideosContents.AddItem(item);
+                    cell = item.GetComponent<AUICommunityTopImagessAndVideosCell>();
 
-                cell = item.GetComponent<AUICommunityTopImagessAndVideosCell>();
+                    cell.SetComment(comment, this);
 
-                cell.SetComment(comment, this);
-
-                imagesAndVideosCells.Add(cell);
+                    imagesAndVideosCells.Add(cell);
+                }
             }
 
             SortImages();
@@ -226,18 +269,19 @@ namespace Fresvii.AppSteroid.UI
                 return;
             }
 
-            this.threadsListMeta = meta;
-
             int index = 0;
 
             foreach (Fresvii.AppSteroid.Models.Thread thread in threads)
             {
-                if(string.IsNullOrEmpty(thread.Comment.Text))
+                if(string.IsNullOrEmpty(thread.Comment.Text) && string.IsNullOrEmpty(thread.Title))
                     continue;
 
                 commentCells[index].gameObject.SetActive(true);
 
-                UpdateThread(thread, index);
+                commentCells[index].SetThread(thread, false, (_thread) =>
+                {
+                    GoToThread(_thread.Id, _thread.Comment, true);
+                });
 
                 index++;
 
@@ -252,13 +296,12 @@ namespace Fresvii.AppSteroid.UI
 
         public GameObject recommendedLoadingSpinner;
 
-        private Fresvii.AppSteroid.Models.ListMeta recommendedAppListMeta;
-
         List<AUIRecommendedAppCell> recommendedAppCells = new List<AUIRecommendedAppCell>();
 
         public AUIScrollViewContents recommendedAppContents;
 
         public GameObject prfbRecommendedAppCell;
+
 
         void OnGetAppList(IList<Fresvii.AppSteroid.Models.App> apps, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
@@ -284,7 +327,13 @@ namespace Fresvii.AppSteroid.UI
 
             recommendedLoadingSpinner.SetActive(false);
 
-            this.recommendedAppListMeta = meta;
+            if (meta.TotalCount > 0)
+            {
+                foreach (var obj in recommendAppsObjects)
+                {
+                    obj.SetActive(true);
+                }
+            }
 
             foreach (var app in apps)
             {
@@ -293,21 +342,21 @@ namespace Fresvii.AppSteroid.UI
                 if (cell != null)
                 {
                     cell.SetApp(app);
-
-                    return;
                 }
+                else
+                {
+                    var item = ((GameObject)Instantiate(prfbRecommendedAppCell)).GetComponent<RectTransform>();
 
-                var item = ((GameObject)Instantiate(prfbRecommendedAppCell)).GetComponent<RectTransform>();
+                    recommendedAppContents.AddItem(item);
 
-                recommendedAppContents.AddItem(item);
+                    cell = item.GetComponent<AUIRecommendedAppCell>();
 
-                cell = item.GetComponent<AUIRecommendedAppCell>();
+                    cell.SetApp(app);
 
-                cell.SetApp(app);
+                    cell.OnClickAppCell += GoToAppDetail;
 
-                cell.OnClickAppCell += GoToAppDetail;
-
-                recommendedAppCells.Add(cell);
+                    recommendedAppCells.Add(cell);
+                }
             }
         }
 
@@ -355,7 +404,7 @@ namespace Fresvii.AppSteroid.UI
         public void SortEvnets()
         {
             // Sort
-            gameEventCells.Sort((a, b) => System.DateTime.Compare(a.GameEvent.EndAt, b.GameEvent.EndAt));
+            gameEventCells.Sort(SortEventsCondition);
 
             foreach (var obj in gameEventCells)
             {
@@ -365,9 +414,25 @@ namespace Fresvii.AppSteroid.UI
             gameEventContents.ReLayout();
         }
 
-        private void UpdateThread(Fresvii.AppSteroid.Models.Thread thread, int index)
+        int SortEventsCondition(AUICommunityTopGameEventCell a, AUICommunityTopGameEventCell b)
         {
-            commentCells[index].SetThread(thread);
+            int ret = System.DateTime.Compare(a.GameEvent.EndAt, b.GameEvent.EndAt);
+
+            if (ret != 0)
+            {
+                return ret;
+            }
+
+            ret = System.DateTime.Compare(a.GameEvent.StartAt, b.GameEvent.StartAt);
+
+            if (ret != 0)
+            {
+                return ret;
+            }
+
+            ret = string.Compare(a.GameEvent.Id, b.GameEvent.Id);
+
+            return ret;
         }
 
         public void GoToForum(int mode)

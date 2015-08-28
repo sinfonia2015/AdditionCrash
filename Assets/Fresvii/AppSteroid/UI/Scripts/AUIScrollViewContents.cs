@@ -415,13 +415,6 @@ namespace Fresvii.AppSteroid.UI
             {
                 foreach (RectTransform item in contents)
                 {
-                    AUIScrollViewItemLayout layout = item.gameObject.GetComponent<AUIScrollViewItemLayout>();
-
-                    /*if (layout != null && layout.ignore)
-                    {
-                        continue;
-                    }*/
-
                     item.gameObject.SetActive(
                             contentsNode.anchoredPosition.x + item.anchoredPosition.x + item.sizeDelta.x >= 0f
                         && contentsNode.anchoredPosition.x + item.anchoredPosition.x < scrollView.rect.width

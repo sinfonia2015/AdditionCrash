@@ -29,8 +29,6 @@ namespace Fresvii.AppSteroid.UI
 
         private List<AUIGroupMemberCell> memberCells = new List<AUIGroupMemberCell>();
 
-        private Fresvii.AppSteroid.Models.ListMeta listMeta;
-
         private bool isPullRefleshProc;
 
         public RectTransform addMemberCell;
@@ -176,7 +174,8 @@ namespace Fresvii.AppSteroid.UI
             {
                 for (int i = 0; i < group.Members.Count; i++)
                 {
-                    memberNames += group.Members[i].Name + ((i == group.Members.Count - 1) ? " " : ", ");
+                    if(group.Members[i].Id != FAS.CurrentUser.Id)
+                        memberNames += (string.IsNullOrEmpty(memberNames)) ? "" : ", " + group.Members[i].Name;
 
                     if (i == 5) break;
                 }
@@ -219,8 +218,6 @@ namespace Fresvii.AppSteroid.UI
 
                 return;
             }
-
-            this.listMeta = meta;
 
             bool added = false;
 

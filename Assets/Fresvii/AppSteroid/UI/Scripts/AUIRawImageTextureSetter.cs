@@ -32,6 +32,14 @@ namespace Fresvii.AppSteroid.UI
 
         System.Action<AUIRawImageTextureSetter> OnLoaded;
 
+        public FilterMode filetrMode = FilterMode.Bilinear;
+
+        public TextureWrapMode wrapMode = TextureWrapMode.Clamp;
+
+        public bool mipmap;
+
+        public bool readWriteEnable = true;
+
         public void SetImmediately(string url)
         {
             if (string.IsNullOrEmpty(url))
@@ -97,11 +105,15 @@ namespace Fresvii.AppSteroid.UI
 
             if (!resize)
             {
-                ResourceManager.Instance.TextureFromCacheOrDownloadOrMemory(url, autoRelease, (tex) =>
+                ResourceManager.Instance.TextureFromCacheOrDownloadOrMemory(url, autoRelease, mipmap, readWriteEnable, (tex) =>
                 {
                     loading = false;
 
                     this.texture = tex;
+
+                    this.texture.filterMode = filetrMode;
+
+                    this.texture.wrapMode = wrapMode;
 
                     if (this.texture != null)
                     {
@@ -116,11 +128,15 @@ namespace Fresvii.AppSteroid.UI
             }
             else
             {
-                ResourceManager.Instance.TextureFromCacheOrDownloadOrMemory(url, autoRelease, (int)shrinkSize.x, (int)shrinkSize.y, (tex) =>
+                ResourceManager.Instance.TextureFromCacheOrDownloadOrMemory(url, autoRelease, (int)shrinkSize.x, (int)shrinkSize.y, mipmap, readWriteEnable, (tex) =>
                 {
                     loading = false;
 
                     this.texture = tex;
+
+                    this.texture.filterMode = filetrMode;
+
+                    this.texture.wrapMode = wrapMode;
 
                     if (this.texture != null)
                     {
@@ -207,7 +223,6 @@ namespace Fresvii.AppSteroid.UI
 
         public Texture2D GetTexture()
         {
-
             return texture;
         }
 

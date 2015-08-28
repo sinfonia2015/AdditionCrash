@@ -8,5 +8,7 @@ namespace Fresvii.AppSteroid.UI
     public class AUIRecommendedAppLayoutCell : MonoBehaviour
     {
         public AUIRecommendedAppsDetailCell[] cells;
+
+        public GameObject line;
     }
 }

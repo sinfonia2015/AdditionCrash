@@ -10,8 +10,6 @@ namespace Fresvii.AppSteroid.UI
     {
         public enum Status { Initializing, Setting, Matching, None };
 
-        private Status state = Status.Initializing;
-
         public AUIFrame frameTween;
 
         [HideInInspector]

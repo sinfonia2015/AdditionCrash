@@ -103,15 +103,15 @@ namespace Fresvii.AppSteroid.Gui
 
             instance.appIcon = (Texture2D)EditorGUILayout.ObjectField(appIconLabel, instance.appIcon, typeof(Texture2D), false);
 
-            instance.lightFont = (Font)EditorGUILayout.ObjectField("Light font", instance.lightFont, typeof(Font));
+            instance.lightFont = (Font)EditorGUILayout.ObjectField("Light font", instance.lightFont, typeof(Font), false);
 
-            instance.regularFont = (Font)EditorGUILayout.ObjectField("Regular font", instance.regularFont, typeof(Font));
+            instance.regularFont = (Font)EditorGUILayout.ObjectField("Regular font", instance.regularFont, typeof(Font), false);
 
-            instance.semiboldFont = (Font)EditorGUILayout.ObjectField("Semibold font", instance.semiboldFont, typeof(Font));
+            instance.semiboldFont = (Font)EditorGUILayout.ObjectField("Semibold font", instance.semiboldFont, typeof(Font), false);
 
-            instance.boldFont = (Font)EditorGUILayout.ObjectField("Bold font", instance.boldFont, typeof(Font));
+            instance.boldFont = (Font)EditorGUILayout.ObjectField("Bold font", instance.boldFont, typeof(Font), false);
 
-            instance.extraboldFont = (Font)EditorGUILayout.ObjectField("Extrabold font", instance.extraboldFont, typeof(Font));
+            instance.extraboldFont = (Font)EditorGUILayout.ObjectField("Extrabold font", instance.extraboldFont, typeof(Font), false);
 
             EditorGUILayout.LabelField("AppSteroid GUI orientation", EditorStyles.boldLabel);
 

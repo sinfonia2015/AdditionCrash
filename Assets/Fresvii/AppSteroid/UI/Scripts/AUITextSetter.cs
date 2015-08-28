@@ -43,12 +43,12 @@ namespace Fresvii.AppSteroid.UI
                 text.text = FASText.Get(key);
             }
 
-            text.font = GetFontType();
+            //text.font = GetFontType();
         }
 
         void Start()
         {
-            //text.font = GetFontType();
+            text.font = GetFontType();
         }
 
         Font GetFontType()
@@ -92,6 +92,11 @@ namespace Fresvii.AppSteroid.UI
             forceTruncate = true;
         }
 
+        public void TruncateImediately()
+        {
+            Truncate(originalText);
+        }
+
         void LateUpdate()
         {
             if (truncate != AUITextSetter.TruncateType.None)
@@ -100,7 +105,7 @@ namespace Fresvii.AppSteroid.UI
 				{
 					text.text = settleText;			
 				}
-                else if (settleText != text.text && !string.IsNullOrEmpty(text.text))
+                else if (settleText != text.text && !string.IsNullOrEmpty(text.text) && this.gameObject.activeInHierarchy)
                 {
 		           	StartCoroutine(DelayTruncate());
                 }
@@ -175,8 +180,17 @@ namespace Fresvii.AppSteroid.UI
 
         private void OnScreenSizeChanged()
         {
-            if (truncate != AUITextSetter.TruncateType.None)
-                Truncate(originalText);
+            if(this.gameObject.activeInHierarchy)
+                StartCoroutine(TruncateDelay());
+        }
+
+        IEnumerator TruncateDelay()
+        {
+            forceTruncate = true;
+
+            yield return new WaitForEndOfFrame();
+
+            Truncate(originalText);
         }
 
         void OnEnable()

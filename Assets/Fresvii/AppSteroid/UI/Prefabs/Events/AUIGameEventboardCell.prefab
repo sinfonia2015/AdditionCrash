@@ -50,7 +50,6 @@ GameObject:
   - 114: {fileID: 11452462}
   - 114: {fileID: 11423590}
   - 114: {fileID: 11435770}
-  - 114: {fileID: 11487696}
   m_Layer: 5
   m_Name: AUIGameEventboardCell
   m_TagString: Untagged
@@ -182,7 +181,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
     m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
-    m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
   m_SpriteState:
@@ -262,20 +261,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &11487696
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 126572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a785b617ebccf943b1be0bb7ebab606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  textTitle: {fileID: 0}
-  textRankingScore: {fileID: 0}
 --- !u!222 &22206302
 CanvasRenderer:
   m_ObjectHideFlags: 1

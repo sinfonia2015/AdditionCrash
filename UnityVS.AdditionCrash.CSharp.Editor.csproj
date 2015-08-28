@@ -105,6 +105,9 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
+    <Reference Include="AppSteroidWithVoiceChatAndroid 1">
+      <HintPath>Assets\Plugins\Android\AppSteroidWithVoiceChatAndroid 1.dll</HintPath>
+    </Reference>
     <Reference Include="AppSteroidWithVoiceChatAndroid">
       <HintPath>Assets\Plugins\Android\AppSteroidWithVoiceChatAndroid.dll</HintPath>
     </Reference>
@@ -148,6 +151,8 @@
     <None Include="Assets\Fresvii\Samples\MatchMakingSampleGame\Unlit-Alpha-Color.shader" />
     <None Include="Assets\Fresvii\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\AndroidManifest_old_1.xml" />
+    <None Include="Assets\Plugins\Android\AndroidManifest_old_2.xml" />
     <None Include="Assets\Plugins\Android\res\layout\aui_videoplayer.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />

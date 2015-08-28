@@ -16,8 +16,6 @@ namespace Fresvii.AppSteroid.UI
         
         private List<AUIMessageFriendCell> friendCells = new List<AUIMessageFriendCell>();
 
-        private Fresvii.AppSteroid.Models.ListMeta friendListMeta;
-
         private bool isPullRefleshProc;
 
         public AUIScrollViewPullReflesh pullReflesh;
@@ -108,8 +106,6 @@ namespace Fresvii.AppSteroid.UI
 
                 return;
             }
-
-            this.friendListMeta = meta;
 
             bool added = false;
 

@@ -31,8 +31,6 @@ namespace Fresvii.AppSteroid.UI
 
         public Text title;
 
-        bool initilized;
-
         void OnEnable()
         {
             //AUIManager.OnEscapeTapped += Back;
@@ -75,8 +73,6 @@ namespace Fresvii.AppSteroid.UI
 
         void OnGetLeaderboards(IList<Fresvii.AppSteroid.Models.Leaderboard> leaderboards, Fresvii.AppSteroid.Models.ListMeta meta,  Fresvii.AppSteroid.Models.Error error)
         {
-            initilized = true;
-
             if (this == null || this.enabled == false || !this.gameObject.activeInHierarchy)
             {
                 return;

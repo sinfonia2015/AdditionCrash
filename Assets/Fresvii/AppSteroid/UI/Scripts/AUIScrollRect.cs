@@ -15,37 +15,39 @@ namespace Fresvii.AppSteroid.UI
 
         public bool IsDrag { get; protected set; }
 
-        RectTransform passRect;
-
         AUIScrollPass auiScrollPass;
 
         protected override void Awake()
         {
             base.Awake();
 
-            if (vertical && verticalScrollbar != null)
+            if (verticalScrollbar != null)
                 scrollVerticalHandle = verticalScrollbar.handleRect.gameObject.GetComponent<Image>();
 
-            if (horizontal && horizontalScrollbar != null)
+            if (horizontalScrollbar != null)
                 scrollHorizontalHandle = horizontalScrollbar.handleRect.gameObject.GetComponent<Image>();
-
-            if (vertical && scrollVerticalHandle != null)
-                scrollVerticalHandle.CrossFadeAlpha(0.0f, 0.0f, true);
-
-            if (horizontal && scrollHorizontalHandle != null)
-                scrollHorizontalHandle.CrossFadeAlpha(0.0f, 0.0f, true);
-
+            
             contentsRectTransform = content.GetComponent<RectTransform>();
 
             auiScrollPass = GetComponent<AUIScrollPass>();
+        }
 
-            if (auiScrollPass != null)
-                passRect = auiScrollPass.passScrollRect.content;
+        protected override void Start()
+        {
+            base.Start();
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
+
+            if (scrollVerticalHandle != null)
+                scrollVerticalHandle.CrossFadeAlpha(0.0f, 0.0f, true);
+
+            if (scrollHorizontalHandle != null)
+                scrollHorizontalHandle.CrossFadeAlpha(0.0f, 0.0f, true);
+
+            IsScroll = IsDrag = false;
         }
 
         protected override void OnDisable()
@@ -76,8 +78,6 @@ namespace Fresvii.AppSteroid.UI
         public override void OnBeginDrag(PointerEventData eventData)
         {
             pass = false;
-
-            contentInitPosition = content.anchoredPosition;
 
             if (auiScrollPass == null)
             {
@@ -126,8 +126,6 @@ namespace Fresvii.AppSteroid.UI
         }
 
         bool pass;
-
-        Vector2 contentInitPosition;
 
         public override void OnDrag(PointerEventData eventData)
         {

@@ -17,10 +17,9 @@ namespace Fresvii.AppSteroid.UI
 
         public Texture2D videoRemoved;
 
-        [HideInInspector]
-        public AUIMessages auiMessages { get; set; }
-
         public AUITextSetter nameTextSetter;
+
+        private bool settle;
 
         void Awake()
         {
@@ -31,7 +30,10 @@ namespace Fresvii.AppSteroid.UI
         {
             AUIManager.OnScreenSizeChanged += OnScreenSizeChanged;
 
-            //StartCoroutine(UpdateUpdatedAt());
+            if (settle)
+            {
+                StartCoroutine(ResetLayout());
+            }
         }
 
         void OnDisable()
@@ -102,6 +104,7 @@ namespace Fresvii.AppSteroid.UI
                     }
                 }
 
+                settle = true;
             }
 
             userName.text = GroupMessage.User.Name + "・" + GroupMessage.CreatedAt.ToString("HH:mm");
@@ -113,13 +116,19 @@ namespace Fresvii.AppSteroid.UI
                 nameTextSetter.truncatedReplacement = "...・" + GroupMessage.CreatedAt.ToString("HH:mm");
             }
 
-           
             SetLayout();
         }
-        
+
         void OnScreenSizeChanged()
         {
-            //SetLayout();
+            StartCoroutine(ResetLayout());
+        }
+
+        IEnumerator ResetLayout()
+        {
+            yield return new WaitForEndOfFrame();
+
+            SetGroupMessage(this.GroupMessage);
         }
 
         IEnumerator UpdateUpdatedAt()

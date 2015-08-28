@@ -87,7 +87,7 @@
 				{
 					fixed4 col = tex2D(_MainTex, i.texcoord) * i.color;
 					fixed4 mask = tex2D(_AlphaTex, i.texcoord) * i.color;
-					col.a = mask.a;
+					col.a = mask.a * col.a;
 					return col;
 				}
 			ENDCG

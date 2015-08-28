@@ -19,13 +19,31 @@ namespace Fresvii.AppSteroid.UI
 
         public float fadeDuraion = 0.5f;
 
+        private AUIFrame parentFrame;
+
 		public void Awake()
 		{
 			image.CrossFadeAlpha (0f, 0f, true);
 		}
 
-        public void SetApp(Fresvii.AppSteroid.Models.App addApp)
+        void OnEnable()
         {
+            if (!TextureIsReady && this.App != null && parentFrame != null)
+            {
+                SetApp(this.App, parentFrame);
+            }
+        }
+
+        void OnDisable()
+        {
+            if(TextureIsReady)
+                this.gameObject.SetActive(false);
+        }
+
+        public void SetApp(Fresvii.AppSteroid.Models.App addApp, AUIFrame parentFrame)
+        {
+            this.parentFrame = parentFrame;
+
             this.App = addApp;
 
             bannerImage.delayCount = transform.GetSiblingIndex() * 10;
@@ -77,17 +95,43 @@ namespace Fresvii.AppSteroid.UI
 
         public void OnClick()
         {
-            if (!string.IsNullOrEmpty(App.StoreUrl))
-            {
-                FASUtility.SendPageView("event.ad.click.store", this.App.Id, System.DateTime.UtcNow, (e) =>
-                {
-                    if (e != null)
-                        Debug.LogError(e.ToString());
-                });
- 
-                Application.OpenURL(App.StoreUrl); 
-            }
+            GoToAppDetail(this.App);
         }
+
+        public GameObject prfbAppDetail;
+
+        public void GoToAppDetail(Fresvii.AppSteroid.Models.App app)
+        {
+            FASUtility.SendPageView("event.ad.click.store", this.App.Id, System.DateTime.UtcNow, (e) =>
+            {
+                if (e != null)
+                    Debug.LogError(e.ToString());
+
+                Application.OpenURL(this.App.StoreUrl);
+            });
+
+            /*if (parentFrame.Animating) return;
+
+            RectTransform rectTransform = GetComponent<RectTransform>();
+
+            var auiAppDetail = ((GameObject)Instantiate(prfbAppDetail)).GetComponent<AUIAppDetail>();
+
+            auiAppDetail.SetApp(app);
+
+            auiAppDetail.transform.SetParent(parentFrame.transform.parent, false);
+
+            auiAppDetail.transform.SetAsLastSibling();
+
+            auiAppDetail.frame.backFrame = this.parentFrame;
+
+            auiAppDetail.frame.Animate(new Vector2(rectTransform.rect.width, 0f), Vector2.zero, () => { });
+
+            this.parentFrame.Animate(Vector2.zero, new Vector2(-rectTransform.rect.width * 0.5f, 0f), () =>
+            {
+                parentFrame.gameObject.SetActive(false);
+            });*/
+        }
+
     }
 }
 

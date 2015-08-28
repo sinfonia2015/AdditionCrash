@@ -18,8 +18,6 @@ namespace Fresvii.AppSteroid.UI
 
         float initDistance;
 
-        float preDistance;
-
         void Update()
         {
             // If there are two touches on the device...
@@ -32,7 +30,7 @@ namespace Fresvii.AppSteroid.UI
                     if (OnPinchStart != null)
                         OnPinchStart();
 
-                    initDistance = preDistance = Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position);
+                    initDistance = Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position);
                 }
 
                 float currentDistance = Vector2.Distance(Input.GetTouch(0).position, Input.GetTouch(1).position);

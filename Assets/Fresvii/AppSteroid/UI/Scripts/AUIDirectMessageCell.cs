@@ -64,20 +64,15 @@ namespace Fresvii.AppSteroid.UI
         {
             RectTransform rtBalloonBg = balloonBg.gameObject.GetComponent<RectTransform>();
 
-            if (comment.gameObject.activeSelf)
-            {
-                float w = balloonReferenceSize.x * Mathf.Min(AUIManager.Instance.auiCanvasScaleManager.scale, 1.0f);
+            float w = balloonReferenceSize.x * Mathf.Min(AUIManager.Instance.auiCanvasScaleManager.scale, 1.0f);
 
-                rtBalloonBg.sizeDelta = new Vector2(w, rtBalloonBg.sizeDelta.y);
+            rtBalloonBg.sizeDelta = new Vector2(w, rtBalloonBg.sizeDelta.y);
 
-                comment.rectTransform.sizeDelta = new Vector2(-40f, comment.rectTransform.sizeDelta.y);
+            comment.rectTransform.sizeDelta = new Vector2(-40f, comment.rectTransform.sizeDelta.y);
 
-                rtBalloonBg.anchoredPosition = new Vector2(rtBalloonBg.anchoredPosition.x, ((hasTimeLine) ? -prfbDateTimeLine.sizeDelta.y - 40f : 0f));
+            rtBalloonBg.anchoredPosition = new Vector2(rtBalloonBg.anchoredPosition.x, ((hasTimeLine) ? -prfbDateTimeLine.sizeDelta.y - 40f : 0f));
 
-                rtBalloonBg.sizeDelta = new Vector2(Mathf.Min(w, comment.preferredWidth + 40f), comment.preferredHeight + 40f);
-
-				//comment.rectTransform.sizeDelta = new Vector2(-40f, comment.rectTransform.sizeDelta.y);
-			}
+            rtBalloonBg.sizeDelta = new Vector2(Mathf.Min(w, comment.preferredWidth + 40f), comment.preferredHeight + 40f);
 
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, -rtBalloonBg.anchoredPosition.y + rtBalloonBg.sizeDelta.y + margin);
         }
@@ -87,6 +82,8 @@ namespace Fresvii.AppSteroid.UI
         public Text subject;
 
         private RectTransform userIconRectTransform;
+
+        private bool settle;
 
         void Awake()
         {
@@ -98,6 +95,9 @@ namespace Fresvii.AppSteroid.UI
             AUIManager.OnScreenSizeChanged += OnScreenSizeChanged;
 
             StartCoroutine(UpdateUpdatedAt());
+
+            if(settle)
+                StartCoroutine(ResetLayout());
         }
 
         void OnDisable()
@@ -125,11 +125,20 @@ namespace Fresvii.AppSteroid.UI
             icon.Set(FAS.OfficialUser.ProfileImageUrl);
 
             SetLayout();
+
+            settle = true;
         }
 
         void OnScreenSizeChanged()
         {
-            //SetLayout();
+            StartCoroutine(ResetLayout());
+        }
+
+        IEnumerator ResetLayout()
+        {
+            yield return new WaitForEndOfFrame();
+
+            SetDirectMessage(this.DirectMessage);
         }
 
         IEnumerator UpdateUpdatedAt()

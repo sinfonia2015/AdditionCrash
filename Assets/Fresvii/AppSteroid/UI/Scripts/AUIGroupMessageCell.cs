@@ -31,8 +31,6 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIRawImageTextureSetter clipImage;
 
-        //public float maxBalloonWidth = 500f;
-
         public Button buttonVideoPlay;
 
         public Vector2 stickerSize = new Vector2(300f, 300f);

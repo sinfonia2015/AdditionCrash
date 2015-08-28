@@ -38,8 +38,6 @@ namespace Fresvii.AppSteroid.UI
 
         public Fresvii.AppSteroid.Models.User User { get; set; }
 
-        private Fresvii.AppSteroid.Models.ListMeta videoListMeta = null;
-
         public Text videosNum;
 
         public Text backButtonText;
@@ -70,6 +68,8 @@ namespace Fresvii.AppSteroid.UI
             pullReflesh.OnPullUpReflesh += OnPullUpReflesh;
 
             AUIManager.OnEscapeTapped -= Back;
+
+            AUIManager.Instance.HideLoadingSpinner();
         }
 
         void OnPullDownReflesh()
@@ -99,6 +99,8 @@ namespace Fresvii.AppSteroid.UI
             normalBackIcon.SetActive(!IsModal);
 
             modalBackIcon.SetActive(IsModal);
+
+            AUIManager.Instance.ShowLoadingSpinner();
 
             if (IsModal)
             {
@@ -130,12 +132,19 @@ namespace Fresvii.AppSteroid.UI
 
             GetVideoList(1);
 
-            string objectId = (FAS.CurrentUser.Id == this.User.Id) ? "" : this.User.Id;
+            string objectId = "";
+
+            if (this.User != null)
+            {
+                objectId = this.User.Id;
+            }
 
             FASUtility.SendPageView("pv.my_page.videos", objectId, System.DateTime.UtcNow, (e) =>
             {
                 if (e != null)
                     Debug.LogError(e.ToString());
+                else
+                    Debug.Log("Success pv.my_page.videos");
             });    
 
         }
@@ -167,6 +176,8 @@ namespace Fresvii.AppSteroid.UI
 
         private void OnGetVideoList(IList<Fresvii.AppSteroid.Models.Video> videos, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
+            AUIManager.Instance.HideLoadingSpinner();
+
             if (this == null)
             {
                 return;

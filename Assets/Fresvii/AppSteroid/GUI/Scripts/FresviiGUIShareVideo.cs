@@ -14,8 +14,6 @@ namespace Fresvii.AppSteroid.Gui
         private static extern string _FasGetVideoThumbnailImagePath(string videoFilePath);
 #endif
 
-        FresviiGUIVideoSharing videoSharing;
-
         public Vector2 portraitMargin, landscapeMargin;
 
         Fresvii.AppSteroid.Models.Video video;
@@ -32,8 +30,6 @@ namespace Fresvii.AppSteroid.Gui
 
         public void Set(FresviiGUIVideoSharing videoSharing, Fresvii.AppSteroid.Models.Video video, Texture2D videoThumbnail)
         {
-            this.videoSharing = videoSharing;
-
             this.gameObject.SetActive(true);
 
             this.video = video;
@@ -44,8 +40,6 @@ namespace Fresvii.AppSteroid.Gui
         public void Set(FresviiGUIVideoSharing videoSharing, string videoPath)
         {
             this.gameObject.SetActive(true);
-
-            this.videoSharing = videoSharing;
 
             this.videoPath = videoPath;
         }

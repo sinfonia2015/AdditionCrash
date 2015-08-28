@@ -20,6 +20,13 @@ namespace Fresvii.AppSteroid.UI
 
         public Button button;
 
+        public float twoLineHeight = 10000f;
+
+        public bool IsTwoLine()
+        {
+            return (textAppName.preferredHeight > twoLineHeight);
+        }
+
         public void SetApp(Fresvii.AppSteroid.Models.App addApp, AUIRecommendedApps AUIRecommendedApps)
         {
             this.AUIRecommendedApps = AUIRecommendedApps;

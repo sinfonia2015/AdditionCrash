@@ -22,6 +22,8 @@ namespace Fresvii.AppSteroid.UI
         [HideInInspector]
         public AUIForum auiForum;
 
+        public InputField titleInputField;
+
         void Start()
         {
             ValidateCreateNewThread();
@@ -64,13 +66,15 @@ namespace Fresvii.AppSteroid.UI
 
             _thread.User = FAS.CurrentUser;
 
-            _thread.LastUpdateAt = _thread.UpdateAt = System.DateTime.Now;
+            _thread.CreatedAt = _thread.LastUpdateAt = _thread.UpdateAt = System.DateTime.Now;
 
             _thread.Comment = new  Fresvii.AppSteroid.Models.Comment();
 
             _thread.Comment.Video = video;
 
             _thread.Comment.Text = commentInputFiled.text;
+
+            _thread.Title = titleInputField.text;
 
             clipImage.dontDestroy = true;
 
@@ -80,7 +84,7 @@ namespace Fresvii.AppSteroid.UI
 
             if (video != null)
             {                
-                Fresvii.AppSteroid.FASForum.CreateVideoThread(commentInputFiled.text, video.Id, (thread, error) =>
+                Fresvii.AppSteroid.FASForum.CreateVideoThread(titleInputField.text, commentInputFiled.text, video.Id, (thread, error) =>
                 {
                     if (error != null)
                     {
@@ -101,7 +105,7 @@ namespace Fresvii.AppSteroid.UI
                     Fresvii.AppSteroid.Util.DialogManager.ShowProgressSpinnerDialog("", FASText.Get("Uploading"), false);
                 }
 
-                Fresvii.AppSteroid.FASForum.CreateThread(commentInputFiled.text, clipImage.GetTexture(), (thread, error) =>
+                Fresvii.AppSteroid.FASForum.CreateThread(titleInputField.text, commentInputFiled.text, clipImage.GetTexture(), (thread, error) =>
                 {
                     Fresvii.AppSteroid.Util.DialogManager.HideProgressSpinnerDialog();
 

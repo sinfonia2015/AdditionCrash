@@ -31,6 +31,8 @@ namespace Fresvii.AppSteroid.UI
 
         float initMinHeight;
 
+        public bool initCalc;
+
         void Awake()
         {
             LayoutElement elem = GetComponent<LayoutElement>();
@@ -38,6 +40,9 @@ namespace Fresvii.AppSteroid.UI
             initPreferredHeight = elem.preferredHeight;
 
             initMinHeight = elem.minHeight;
+
+            if (initCalc)
+                CalcSize();
         }
 
         // Use this for initialization

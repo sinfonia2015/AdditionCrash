@@ -87,7 +87,11 @@ namespace Fresvii.AppSteroid.UI
             AUIManager.Instance.ShowLoadingSpinner(false);
 
             if (this.ThreadCell.Thread != null)
+            {
                 subscribeButtonImage.color = ThreadCell.Thread.Subscribed ? subscribeColor : unsubscribeColor;
+
+                title.text = (string.IsNullOrEmpty(this.ThreadCell.Thread.Title)) ? FASText.Get("Thread") : ThreadCell.Thread.Title;
+            }
 
             while (frame.Animating)
             {
@@ -309,14 +313,7 @@ namespace Fresvii.AppSteroid.UI
 
         int SortCondition(AUIForumCommentCell a, AUIForumCommentCell b)
         {
-            int ret = System.DateTime.Compare(a.Comment.UpdateAt, b.Comment.UpdateAt);
-
-            if (ret != 0)
-            {
-                return ret;
-            }
-
-            ret = System.DateTime.Compare(a.Comment.CreatedAt, b.Comment.CreatedAt);
+            int ret = System.DateTime.Compare(a.Comment.CreatedAt, b.Comment.CreatedAt);
 
             if (ret != 0)
             {
@@ -454,6 +451,8 @@ namespace Fresvii.AppSteroid.UI
 
             if (ThreadCell.Thread.User.Id == FAS.CurrentUser.Id)
             {
+                buttons.Add(FASText.Get("EditTitle"));
+
                 buttons.Add(FASText.Get("Delete"));
             }
 
@@ -468,6 +467,39 @@ namespace Fresvii.AppSteroid.UI
                 else if (selected == FASText.Get("Subscribe"))
                 {
                     Subscribe();
+                }
+                else if (selected == FASText.Get("EditTitle"))
+                {
+                    AUIKeyboardInput.Show(ThreadCell.Thread.Title, false, (text) =>
+                    {
+                        buttonSubscribe.interactable = true;
+
+                        string origTitle = ThreadCell.Thread.Title;
+
+                        ThreadCell.Thread.Title = text;
+
+                        ThreadCell.SetThraed(ThreadCell.Thread);
+
+                        FASForum.EditThreadTitle(ThreadCell.Thread.Id, text, (thread, error) =>
+                        {
+                            if (error == null)
+                            {
+                                ThreadCell.SetThraed(thread);
+
+                                title.text = (string.IsNullOrEmpty(this.ThreadCell.Thread.Title)) ? FASText.Get("Thread") : ThreadCell.Thread.Title;
+                            }
+                            else
+                            {
+                                Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel(FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"));
+
+                                Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), (del) => { });
+
+                                ThreadCell.Thread.Title = origTitle;
+
+                                ThreadCell.SetThraed(ThreadCell.Thread);
+                            }
+                        });
+                    });
                 }
                 else if (selected == FASText.Get("Delete"))
                 {
@@ -606,7 +638,7 @@ namespace Fresvii.AppSteroid.UI
 
             comment.Text = text;
 
-            comment.UpdateAt = System.DateTime.Now;
+            comment.CreatedAt = comment.UpdateAt = System.DateTime.Now;
 
             comment.Video = video;
 

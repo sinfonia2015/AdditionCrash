@@ -24,7 +24,20 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIScrollRect scrollView;
 
-        private Fresvii.AppSteroid.Models.ListMeta listMeta;
+        public Graphic fade;
+
+        public float fadeDuration = 0.3f;
+
+        bool initialized;
+
+        IEnumerator FadeOutMask(Graphic g)
+        {
+            g.CrossFadeAlpha(0f, fadeDuration, true);
+
+            yield return new WaitForSeconds(fadeDuration);
+
+            g.gameObject.SetActive(false);
+        }
 
         void OnEnable()
         {
@@ -35,6 +48,8 @@ namespace Fresvii.AppSteroid.UI
 
         void OnDisable()
         {
+            AUIManager.Instance.HideLoadingSpinner();
+
             pullReflesh.OnPullUpReflesh -= OnPullUpReflesh;
         }
 
@@ -43,8 +58,16 @@ namespace Fresvii.AppSteroid.UI
             pullReflesh.PullRefleshCompleted();
         }
 
+        void Awake()
+        {
+            fade.gameObject.SetActive(true);
+        }
+
         IEnumerator Init()
         {
+            if(!initialized)
+                AUIManager.Instance.ShowLoadingSpinner();
+
             yield return 1;
 
             while (!FASUser.IsLoggedIn() || auiEvents.frame.Animating)
@@ -62,6 +85,13 @@ namespace Fresvii.AppSteroid.UI
 
         void OnGetEventList(IList<Fresvii.AppSteroid.Models.GameEvent> events, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
+            initialized = true;
+
+            AUIManager.Instance.HideLoadingSpinner();
+
+            if(fade.gameObject.activeSelf)
+                StartCoroutine(FadeOutMask(fade));
+
             if (this == null || this.enabled == false)
             {
                 return;
@@ -76,8 +106,6 @@ namespace Fresvii.AppSteroid.UI
 
                 return;
             }
-
-            this.listMeta = meta;
 
             foreach (Fresvii.AppSteroid.Models.GameEvent gameEvent in events)
             {
@@ -111,11 +139,11 @@ namespace Fresvii.AppSteroid.UI
             }
             else if (mode == Models.GameEvent.Status.Past)
             {
-                cells.Sort((a, b) => System.DateTime.Compare(b.GameEvent.EndAt, a.GameEvent.EndAt));
+                cells.Sort(SortEventsCondition);
             }
             else
             {
-                cells.Sort((a, b) => System.DateTime.Compare(a.GameEvent.EndAt, b.GameEvent.EndAt));
+                cells.Sort(SortEventsCondition);
             }
 
             foreach (var obj in cells)
@@ -124,6 +152,27 @@ namespace Fresvii.AppSteroid.UI
             }
 
             contents.ReLayout();
+        }
+
+        int SortEventsCondition(AUIEventCell a, AUIEventCell b)
+        {
+            int ret = System.DateTime.Compare(a.GameEvent.EndAt, b.GameEvent.EndAt);
+
+            if (ret != 0)
+            {
+                return ret;
+            }
+
+            ret = System.DateTime.Compare(a.GameEvent.StartAt, b.GameEvent.StartAt);
+
+            if (ret != 0)
+            {
+                return ret;
+            }
+
+            ret = string.Compare(a.GameEvent.Id, b.GameEvent.Id);
+
+            return ret;
         }
     }
 }

@@ -52,8 +52,6 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIGridLayoutHelper auiGridLayoutHelper;
 
-        List<Fresvii.AppSteroid.Models.Stat> stats = new List<Fresvii.AppSteroid.Models.Stat>();
-
         private List<AUIStatCell> statCells = new List<AUIStatCell>();
 
         public Text statsTitle;
@@ -285,8 +283,6 @@ namespace Fresvii.AppSteroid.UI
 
             auiFriendList.parentFrameTween = this.frameTween;
 
-            auiFriendList.backButtonText.text = FASText.Get("MyPage");
-
             frameTween.Animate(Vector2.zero, new Vector2(-rectTransform.rect.width * 0.5f, 0f), () =>
             {
                 this.gameObject.SetActive(false);
@@ -320,7 +316,6 @@ namespace Fresvii.AppSteroid.UI
             friendRequest.SetBackButton(FASText.Get("MyPage"));
 
             friendRequest.parentFrameTween = this.frameTween;
-
 
             if (animation)
             {

@@ -6,8 +6,6 @@ namespace Fresvii.AppSteroid.UI
 {
     public class AUICommunityTopImagessAndVideosCell : MonoBehaviour
     {
-        private bool isVideo;
-
         public Fresvii.AppSteroid.Models.Comment Comment { get; protected set; }
 
         public AUIRawImageTextureSetter image;
@@ -37,8 +35,6 @@ namespace Fresvii.AppSteroid.UI
 
             if (Comment.VideoState == Models.Comment.VideoStatus.Ready)
             {
-                isVideo = true;
-
                 image.delayCount = 2;
 
                 image.Set(Comment.Video.ThumbnailUrl);
@@ -47,8 +43,6 @@ namespace Fresvii.AppSteroid.UI
             }
             else if (!string.IsNullOrEmpty(Comment.ImageThumbnailUrl))
             {
-                isVideo = false;
-
                 image.delayCount = 2;
 
                 image.Set(Comment.ImageThumbnailUrl);

@@ -105,8 +105,6 @@ namespace Fresvii.AppSteroid.UI
 
         public float Height { get; protected set; }
 
-        float commentHeight = 0f;
-
         IEnumerator UpdateUpdatedAt()
         {
             while (true)
@@ -124,8 +122,6 @@ namespace Fresvii.AppSteroid.UI
             }
         }
 
-        private bool downloading;
-
         public void OnClickMenuButton()
         {
             buttonMenu.interactable = false;
@@ -140,13 +136,13 @@ namespace Fresvii.AppSteroid.UI
 
             AUIPopUpBalloon.Show(buttons.ToArray(), buttonMenuCenter, (selected) =>
             {
+                buttonMenu.interactable = true;
+
                 if (selected == FASText.Get("CopyToCameraRoll"))
                 {
-                    downloading = true;
-
                     FASVideo.DownloadAndCopyToAlbum(Video.VideoUrl, () =>
                     {
-                        downloading = false;
+
                     }
                     ,
 
@@ -160,10 +156,6 @@ namespace Fresvii.AppSteroid.UI
                 else if (selected == FASText.Get("Delete"))
                 {
                     DeleteVideo();
-                }
-                else
-                {
-                    buttonMenu.interactable = true;
                 }
             });
         }
@@ -187,8 +179,6 @@ namespace Fresvii.AppSteroid.UI
                     {
                         if (error != null)
                         {
-                            buttonMenu.interactable = true;
-
                             Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), (d) => { });
                         }
                         else

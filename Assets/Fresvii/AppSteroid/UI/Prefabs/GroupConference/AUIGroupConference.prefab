@@ -1590,7 +1590,7 @@ MonoBehaviour:
   callStateText: {fileID: 11440158}
   buttonCallStart: {fileID: 11421304}
   buttonCallEnd: {fileID: 11421302}
-  bgImage: {fileID: 0}
+  bgImage: {fileID: 11424610}
   buttonMicrophone: {fileID: 11421298}
   spriteMicrophoneOn: {fileID: 21300000, guid: 7f1ba5f37de0ea34f81e9dd3af5bca07, type: 3}
   spriteMicrophoneOff: {fileID: 21300000, guid: 80c2a1537e83b3847b49793216b8b956,
@@ -2082,7 +2082,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 22424638}
   m_Direction: 2
   m_Value: 1
-  m_Size: .728878677
+  m_Size: .56099093
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -247,7 +247,7 @@ namespace Fresvii.AppSteroid.Gui
 
         private void LoadUserIcon(string url)
         {
-            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(url, true, delegate(Texture2D texture)
+            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(url, true, false, false, delegate(Texture2D texture)
             {
                 userIcon = texture;
 
@@ -263,7 +263,7 @@ namespace Fresvii.AppSteroid.Gui
                 return;
             }
 
-            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(url, true, delegate(Texture2D texture)
+            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(url, true, false, false, delegate(Texture2D texture)
             {
                 if (texture == null)
                 {

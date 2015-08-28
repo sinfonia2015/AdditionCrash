@@ -27,8 +27,7 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIScrollRect scrollView;
 
-        private Fresvii.AppSteroid.Models.ListMeta listMeta;
-
+        private bool clear;
         
         IEnumerator Init()
         {
@@ -42,6 +41,15 @@ namespace Fresvii.AppSteroid.UI
 
         void OnEnable()
         {
+            foreach (var cell in requestedCells)
+            {
+                Destroy(cell.gameObject);
+            }
+
+            requestedCells.Clear();
+
+            contents.Clear();
+
             StartCoroutine(Init());
         }
 
@@ -76,8 +84,6 @@ namespace Fresvii.AppSteroid.UI
             {
                 yield break;
             }
-
-            this.listMeta = meta;
 
             foreach (Fresvii.AppSteroid.Models.Friend friend in friends)
             {

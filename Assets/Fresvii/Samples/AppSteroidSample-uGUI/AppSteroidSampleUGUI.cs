@@ -25,7 +25,7 @@ public class AppSteroidSampleUGUI : MonoBehaviour {
     //------------------------------------------
     public void OnClickShowGUI()
     {
-        FASGui.ShowGUI(FASGui.Mode.All, FASGui.Mode.Forum);
+        FASGui.ShowGUI(FASGui.Mode.All);
     }
 
     public void OnClickMatchMakingEveryone()

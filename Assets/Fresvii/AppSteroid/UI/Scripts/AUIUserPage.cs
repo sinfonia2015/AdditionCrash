@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +36,7 @@ namespace Fresvii.AppSteroid.UI
 
         public GameObject prfbVideoList;
 
-        public Sprite sendRequest, isFriend, unfriend;
+        public Sprite sendRequest, isFriend, unfriend, requested;
 
         public Button friendButton;
 
@@ -51,11 +52,11 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIGridLayoutHelper auiGridLayoutHelper;
 
-        List<Fresvii.AppSteroid.Models.Stat> stats = new List<Fresvii.AppSteroid.Models.Stat>();
-
         public Color[] cellColors;
 
         public Text statsTitle;
+
+        public static event Action<Fresvii.AppSteroid.Models.User> OnUnfriended;
 
         void Awake()
         {
@@ -63,6 +64,8 @@ namespace Fresvii.AppSteroid.UI
             buttonCall.gameObject.SetActive(false);
 #endif
             statsTitle.text = FASConfig.Instance.appName + " " + FASText.Get("Stats");
+
+            topContentsLayoutElement.preferredHeight = topContentsLayoutElement.minHeight = 820f;
         }
 
         public void Set(Fresvii.AppSteroid.Models.User user, string backButton, AUIFrame parentFrameTween)
@@ -74,8 +77,6 @@ namespace Fresvii.AppSteroid.UI
             backButtonText.text = backButton;
 
             SetCurrentUserInfo();
-
-            StartCoroutine(Init());
 
             if (this.User.Official)
             {
@@ -101,6 +102,18 @@ namespace Fresvii.AppSteroid.UI
 
                 friendStatus.text = FASText.Get("RequestSent");
             }
+            else if (User.FriendStatus == Models.User.FriendStatuses.Requested)
+            {
+                friendButton.image.sprite = requested;
+
+                friendButton.interactable = true;
+
+                friendStatus.text = FASText.Get("Respond");
+
+                requestedPanel.SetActive(true);
+
+                topContentsLayoutElement.preferredHeight = topContentsLayoutElement.minHeight = 1000f;
+            }
             else
             {
                 friendButton.image.sprite = isFriend;
@@ -115,7 +128,14 @@ namespace Fresvii.AppSteroid.UI
 
         IEnumerator Init()
         {
+            requestedPanel.SetActive(false);
+
             while (!AUIManager.Instance.Initialized)
+            {
+                yield return 1;
+            }
+
+            while (User == null)
             {
                 yield return 1;
             }
@@ -188,11 +208,33 @@ namespace Fresvii.AppSteroid.UI
         void OnEnable()
         {
             AUIManager.OnEscapeTapped += Back;
+
+            FASEvent.OnFriendshipRequestCreated += OnFriendshipRequestCreated;
+
+            StartCoroutine(Init());
         }
 
         void OnDisable()
         {
             AUIManager.OnEscapeTapped -= Back;
+
+            FASEvent.OnFriendshipRequestCreated -= OnFriendshipRequestCreated;
+        }
+
+        void OnFriendshipRequestCreated(Fresvii.AppSteroid.Models.User user)
+        {
+            if (user.Id == this.User.Id)
+            {
+                FASUser.GetUser(User.Id, (_user, _error) =>
+                {
+                    if (_error == null)
+                    {
+                        this.User = _user;
+
+                        SetCurrentUserInfo();
+                    }
+                });
+            }
         }
 
         void SetCurrentUserInfo()
@@ -210,12 +252,6 @@ namespace Fresvii.AppSteroid.UI
             videosNum.text = User.VideosCount.ToString();
 
             friendsNum.text = User.FriendsCount.ToString();
-
-            int hour = (int)(User.LaunchTime / 3600);
-
-            int min = (int)((User.LaunchTime - hour * 3600) / 60);
-
-            int sec = (int)(User.LaunchTime % 60);
 
             SetFriendButton();
         }
@@ -253,8 +289,6 @@ namespace Fresvii.AppSteroid.UI
             auiFriendList.User = this.User;
 
             auiFriendList.parentFrameTween = this.frameTween;
-
-            auiFriendList.backButtonText.text = FASText.Get("Back");
 
             frameTween.Animate(Vector2.zero, new Vector2(-rectTransform.rect.width * 0.5f, 0f), () =>
             {
@@ -341,6 +375,37 @@ namespace Fresvii.AppSteroid.UI
             });
         }
 
+        public GameObject prfbFriendRequest;
+
+        void GoToFriendRequest()
+        {
+            if (frameTween.Animating) return;
+
+            RectTransform rectTransform = GetComponent<RectTransform>();
+
+            GameObject go = Instantiate(prfbFriendRequest) as GameObject;
+
+            go.GetComponent<RectTransform>().SetParent(transform.parent, false);
+
+            go.transform.SetAsLastSibling();
+
+            AUIFriendRequest friendRequest = go.GetComponent<AUIFriendRequest>();
+
+            friendRequest.SetBackButton(this.User.Name);
+
+            friendRequest.parentFrameTween = this.frameTween;
+
+            frameTween.Animate(Vector2.zero, new Vector2(-rectTransform.rect.width * 0.5f, 0f), () =>
+            {
+                this.gameObject.SetActive(false);
+            });
+
+            friendRequest.frameTween.Animate(new Vector2(rectTransform.rect.width, 0f), Vector2.zero, () =>
+            {
+
+            });
+        }
+
         public void OnClickCall()
         {
             if (frameTween.Animating) return;
@@ -393,61 +458,87 @@ namespace Fresvii.AppSteroid.UI
                 return;
             }
 
-            if (User.FriendStatus == Models.User.FriendStatuses.Friend)
+            if (User.FriendStatus == Models.User.FriendStatuses.Friend) 
             {
-                Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel(FASText.Get("Unfriend"), FASText.Get("Cancel"), FASText.Get("Close"));
+				Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel (FASText.Get ("Unfriend"), FASText.Get ("Cancel"), FASText.Get ("Close"));
 
-                Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSelectDialog(FASText.Get("ConfirmUnfriend"), (del)=>
-                {
-                    FASFriendship.UnFriend(User.Id, (error)=>
+				Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSelectDialog (FASText.Get ("ConfirmUnfriend"), (del) =>
+				{
+                    if (!del)
                     {
-                        if (error == null)
-                        {
-                            User.SetFriendStatus(Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.none.ToString());
-
-                            DeletePairGroupMessages(User.Id, deleteGroupRetryCount, deleteGroupRetryInterval);
-                        }
-                        else
-                        {
-                            if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error)
-                            {
-                                Debug.LogError(error.ToString());
-                            }
-
-                            Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel(FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"));
-
-                            Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), (_del)=>{ });
-                        }
-
-                        SetFriendButton();
-                    });
-                });
-            }
-            else if(User.FriendStatus == Models.User.FriendStatuses.None)
-            {
-                User.SetFriendStatus(Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.requesting.ToString());
-
-                FASFriendship.SendFriendshipRequest(User.Id, (friendshipRequest, error) =>
-                {
-                    if (error == null)
-                    {
-                        User.SetFriendStatus(friendshipRequest.Status.ToString());
+                        return;
                     }
-                    else
-                    {
-                        if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error)
-                        {
-                            Debug.LogError(error.ToString());
-                        }
 
-                        Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), (del)=>{ });
-
-                        User.SetFriendStatus(Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.none.ToString());
-                    }
+                    User.SetFriendStatus(Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.none.ToString());
 
                     SetFriendButton();
-                });
+
+					FASFriendship.UnFriend (User.Id, (error) =>
+					{
+						if (error == null) 
+                        {
+							User.SetFriendStatus (Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.none.ToString ());
+
+							DeletePairGroupMessages (User.Id, deleteGroupRetryCount, deleteGroupRetryInterval);
+
+                            if (OnUnfriended != null)
+                            {
+                                OnUnfriended(this.User);
+                            }
+						} 
+                        else 
+                        {						
+                            if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error) 
+                            {
+								Debug.LogError (error.ToString ());
+							}
+
+							Fresvii.AppSteroid.Util.DialogManager.Instance.SetLabel (FASText.Get ("OK"), FASText.Get ("Cancel"), FASText.Get ("Close"));
+
+							Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog (FASText.Get ("UnknownError"), (_del) => { });
+
+                            User.SetFriendStatus(Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.friend.ToString());
+                        }
+
+						SetFriendButton ();
+					});
+				});
+			} 
+			else if (User.FriendStatus == Models.User.FriendStatuses.Requesting) 
+			{
+
+			}
+            else if (User.FriendStatus == Models.User.FriendStatuses.Requested)
+            {
+                AcceptFriendshipRequest();
             }
+			else 
+			{
+				User.SetFriendStatus (Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.requesting.ToString ());
+
+                SetFriendButton();
+				
+				FASFriendship.SendFriendshipRequest (User.Id, (friendshipRequest, error) =>
+				{
+					if (error == null) 
+					{
+						User.SetFriendStatus (friendshipRequest.Status.ToString ());
+					} 
+					else 
+					{
+						if (FASConfig.Instance.logLevel <= FAS.LogLevels.Error) 
+                        {
+							Debug.LogError (error.ToString ());
+						}
+						
+						Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog (FASText.Get ("UnknownError"), (del) => { });
+						
+						User.SetFriendStatus (Fresvii.AppSteroid.Models.FriendshipRequest.Statuses.none.ToString ());
+					}
+					
+					SetFriendButton ();
+				});
+			} 
         }
 
         private IEnumerator DeleteGroupMessgesRetryCoroutine(string userId, int retry, float retryInterval)
@@ -546,6 +637,114 @@ namespace Fresvii.AppSteroid.UI
             yield return new WaitForSeconds(0.5f);
 
             copyBalloon.FadeOut();
+        }
+
+        public GameObject requestedPanel;
+
+        public void AcceptFriendshipRequest()
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("Offline"), FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"), (del) => { });
+
+                return;
+            }
+
+            AUIManager.Instance.ShowLoadingSpinner();
+
+            FASFriendship.AcceptFriendshipRequest(this.User.Id, (request, error) =>
+            {
+                AUIManager.Instance.HideLoadingSpinner();
+
+                if (error != null)
+                {
+                    Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"), (del) => { });
+                }
+                else
+                {
+                    StartCoroutine(FadeOutRequestedPanel());
+
+                    if (AUITabBar.Instance.tabBadges[(int)AUITabBar.TabButton.MyPage].Count > 0)
+                    {
+                        AUITabBar.Instance.tabBadges[(int)AUITabBar.TabButton.MyPage].Count--;
+                    }
+
+                    User.SetFriendStatus(Models.User.FriendStatuses.Friend);
+
+                    SetCurrentUserInfo();
+                }
+            });
+        }
+
+        public float requestedPanelDeleteDuration = 0.5f;
+
+        public LayoutElement requestedPanelLayoutElement;
+
+        public iTween.EaseType easetype;
+
+        public Graphic requestedPanelFade;
+
+        public LayoutElement topContentsLayoutElement;
+
+        IEnumerator FadeOutRequestedPanel()
+        {
+            requestedPanelFade.gameObject.SetActive(true);
+
+            requestedPanelFade.CrossFadeAlpha(0f, 0f, true);
+
+            yield return 1;
+
+            requestedPanelFade.CrossFadeAlpha(1f, 0.5f * requestedPanelDeleteDuration, true);
+
+            yield return new WaitForSeconds(0.5f * requestedPanelDeleteDuration);
+
+            iTween.ValueTo(this.gameObject, iTween.Hash("time", requestedPanelDeleteDuration, "from", topContentsLayoutElement.preferredHeight, "to", topContentsLayoutElement.preferredHeight - requestedPanelLayoutElement.preferredHeight, "easetype", easetype, "onupdate", "OnUpdateContentSize"));
+
+            iTween.ValueTo(this.gameObject, iTween.Hash("time", requestedPanelDeleteDuration, "from", requestedPanelLayoutElement.preferredHeight, "to", 0f, "easetype", easetype, "onupdate", "OnUpdateDeleteCell", "oncomplete", "OnCompleteDeleteCell"));
+        }
+
+        void OnUpdateDeleteCell(float value)
+        {
+            requestedPanelLayoutElement.preferredHeight = requestedPanelLayoutElement.minHeight = value;
+        }
+
+        void OnUpdateContentSize(float value)
+        {
+            topContentsLayoutElement.preferredHeight = topContentsLayoutElement.minHeight = value;
+        }
+
+        void OnCompleteDeleteCell()
+        {
+            requestedPanel.SetActive(false);
+        }
+
+        public void HideFriendshipRequest()
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("Offline"), FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"), (del) => { });
+
+                return;
+            }
+
+            AUIManager.Instance.ShowLoadingSpinner();
+
+            FASFriendship.HideFriendshipRequest(this.User.Id, (request, error) =>
+            {
+                AUIManager.Instance.HideLoadingSpinner();
+
+                if (error != null)
+                {
+                    Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FASText.Get("UnknownError"), FASText.Get("OK"), FASText.Get("Cancel"), FASText.Get("Close"), (del) => { });
+                }
+                else
+                {
+                    StartCoroutine(FadeOutRequestedPanel());
+
+                    if (AUITabBar.Instance.tabBadges[(int)AUITabBar.TabButton.MyPage].Count > 0)
+                        AUITabBar.Instance.tabBadges[(int)AUITabBar.TabButton.MyPage].Count--;
+                }
+            });
         }
     }
 }

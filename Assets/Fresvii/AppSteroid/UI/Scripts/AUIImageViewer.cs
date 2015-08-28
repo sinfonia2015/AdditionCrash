@@ -14,9 +14,7 @@ namespace Fresvii.AppSteroid.UI
         private static AUIImageViewer instance;
 
         public AUIRawImageTextureSetter image;
-
-        private Action callback;
-
+        
         public float zoomSpeed;
 
         private Vector2 textureSize;
@@ -44,8 +42,6 @@ namespace Fresvii.AppSteroid.UI
             instance.transform.SetAsLastSibling();
 
             instance.image.Set(imageUrl);
-
-            instance.callback = callback;
         }
 
         void OnEnable()

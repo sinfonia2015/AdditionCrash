@@ -40,7 +40,7 @@ namespace Fresvii.AppSteroid.UI
 
         void Start()
         {
-            title.text = frame.title = FASConfig.Instance.appName + " " + FASText.Get("Events");
+            title.text = frame.title = FASConfig.Instance.appName + " " + FASText.Get("GameEvents");
         }
 
         public void Back()

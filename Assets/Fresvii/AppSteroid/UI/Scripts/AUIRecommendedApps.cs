@@ -144,22 +144,57 @@ namespace Fresvii.AppSteroid.UI
 
             for(int i = 0; i < layoutCells.Length; i++)
             {
+                int activeCellCount = 0;
+
                 for (int j = 0; j < layoutCells[order[i]].cells.Length; j++)
                 {
                     if(appIndex < randomApps.Count)
+                    {
                         layoutCells[order[i]].cells[j].SetApp(randomApps[appIndex], this);
+
+                        activeCellCount++;
+                    }
                     else
+                    {
                         layoutCells[order[i]].cells[j].SetApp(null, this);
+                    }
 
                     if (j == 0 && appIndex >= randomApps.Count)
+                    {
                         layoutCells[order[i]].gameObject.SetActive(false);
-					else
-						layoutCells[order[i]].gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        layoutCells[order[i]].gameObject.SetActive(true);
+                    }
 
                     appIndex++;
                 }
+
+                layoutCells[order[i]].gameObject.SetActive(activeCellCount > 0);
+
+                /*if (activeCellCount > 0 && appIndex < randomApps.Count)
+                {
+                    layoutCells[order[i]].line.SetActive(true);
+                }*/
             }
+
+            /*bool hasTwoLine = false;
+
+            for (int i = 0; i < 2; i++)
+            {
+                hasTwoLine |= layoutCells[1].cells[i].IsTwoLine();
+            }
+
+            if (hasTwoLine)
+            {
+                layoutCells[1].GetComponent<LayoutElement>().preferredHeight += app2OffSetHeight;
+
+                layoutCells[1].GetComponent<LayoutElement>().minHeight += app2OffSetHeight;
+            }*/
         }
+
+        public float app2OffSetHeight = -20f;
 
         public void Back()
         {

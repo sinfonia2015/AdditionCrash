@@ -28,25 +28,31 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIScrollViewContents previewContents;
 
-        public GameObject previewLoadingSpinner;
-
         public AUICommunityTopCommentCell[] commentCells;
 
         public Text communityText;
 
+        public GameObject buttonSeeMoreObj;
+
+        public LayoutElement descriptionAreaLayoutElement;
+
+        public RectTransform rectTransformDescriptionText;
+
+        public AUITextSetter textSetterDescriptionText;
+
         void OnEnable()
         {
             AUIManager.OnEscapeTapped += Back;
-
-            StartCoroutine(Init());
         }
 
         void OnDisable()
         {
             AUIManager.OnEscapeTapped -= Back;
+
+            AUIManager.Instance.HideLoadingSpinner();
         }
 
-        IEnumerator Init()
+        IEnumerator Start()
         {
             while (!AUIManager.Instance.Initialized)
             {
@@ -58,21 +64,39 @@ namespace Fresvii.AppSteroid.UI
                 yield return 1;
             }
 
-            FASApps.GetApp(this.App.Id, (app, error) =>
+            if (string.IsNullOrEmpty(this.App.Description))
             {
-                if (error == null)
+                FASApps.GetApp(this.App.Id, (app, error) =>
                 {
-                    SetApp(app);
-                }
-                else
-                {
-                    Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FresviiGUIText.Get("UnknownError"), FASText.Get("Yes"), FASText.Get("No"), FASText.Get("Close"), (del)=>{ });
-                }                
-            });
+                    if (error == null)
+                    {
+                        SetApp(app);
 
-            FASApps.GetVideoList(1, this.App.Id, OnGetVideoList);
+                        SetLayout();
+                    }
+                    else
+                    {
+                        Fresvii.AppSteroid.Util.DialogManager.Instance.ShowSubmitDialog(FresviiGUIText.Get("UnknownError"), FASText.Get("Yes"), FASText.Get("No"), FASText.Get("Close"), (del) => { });
+                    }
+                });
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+
+                SetLayout();
+            }            
+
+            while (frame.Animating)
+                yield return 1;
+
+            FASApps.GetEventList(1, 10, this.App.Id, OnGetEventList);
 
             FASApps.GetThreadList(1, 10, this.App.Id, OnGetThreadList);
+
+            FASApps.GetVideoList(1, 10, this.App.Id, OnGetVideoList);
+
+            yield return new WaitForSeconds(0.5f);
 
             FASUtility.SendPageView("pv.apps.show", this.App.Id, System.DateTime.UtcNow, (e) => 
             {
@@ -80,6 +104,80 @@ namespace Fresvii.AppSteroid.UI
                     Debug.LogError(e.ToString());
             });
         }
+
+        private Fresvii.AppSteroid.Models.ListMeta gameEventListMeta;
+
+        public GameObject gameEventsObj;
+
+        private List<AUICommunityTopGameEventCell> gameEventCells = new List<AUICommunityTopGameEventCell>();
+
+        public GameObject prfbGameEventCell;
+
+        public AUIScrollViewContents gameEventContents;
+
+        void OnGetEventList(IList<Fresvii.AppSteroid.Models.GameEvent> events, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
+        {
+            if (this == null || this.enabled == false)
+            {
+                return;
+            }
+
+            if (error != null)
+            {
+                if (FASSettings.Instance.logLevel <= FAS.LogLevels.Error)
+                {
+                    Debug.LogError(error.ToString());
+                }
+
+                return;
+            }
+
+            this.gameEventListMeta = meta;
+
+            if (gameEventListMeta.TotalCount > 0)
+            {
+                gameEventsObj.SetActive(true);
+            }
+            else
+            {
+                return;
+            }
+
+            foreach (Fresvii.AppSteroid.Models.GameEvent gameEvent in events)
+            {
+                var cell = gameEventCells.Find(x => x.GameEvent.Id == gameEvent.Id);
+
+                if (cell != null)
+                {
+                    cell.SetGameEvent(gameEvent, null);
+
+                    return;
+                }
+
+                var item = ((GameObject)Instantiate(prfbGameEventCell)).GetComponent<RectTransform>();
+
+                gameEventContents.AddItem(item);
+
+                cell = item.GetComponent<AUICommunityTopGameEventCell>();
+
+                cell.SetGameEvent(gameEvent, null);
+
+                gameEventCells.Add(cell);
+            }
+
+            // Sort
+            gameEventCells.Sort((a, b) => System.DateTime.Compare(a.GameEvent.EndAt, b.GameEvent.EndAt));
+
+            foreach (var obj in gameEventCells)
+            {
+                obj.transform.SetSiblingIndex(gameEventContents.transform.childCount - 1);
+            }
+
+            gameEventContents.ReLayout();
+        }
+
+
+        public GameObject comments;
 
         void OnGetThreadList(IList<Fresvii.AppSteroid.Models.Thread> threads, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
@@ -110,6 +208,15 @@ namespace Fresvii.AppSteroid.UI
                 return;
             }
 
+            if (meta.TotalCount > 0)
+            {
+                comments.SetActive(true);
+            }
+            else
+            {
+                return;
+            }
+
             int index = 0;
 
             foreach (var thread in threads)
@@ -123,7 +230,7 @@ namespace Fresvii.AppSteroid.UI
 
                 commentCells[index].gameObject.SetActive(true);
 
-                commentCells[index].SetComment(thread.Comment, null);
+                commentCells[index].SetThread(thread, false, null);
 
                 index++;
 
@@ -136,22 +243,77 @@ namespace Fresvii.AppSteroid.UI
             }
         }
 
+        private float descriptionPrefferedHeight = 280f;
+
         public void SetApp(Fresvii.AppSteroid.Models.App app)
         {
             this.App = app;
+        }
 
+        void SetLayout()
+        {
             this.title.text = this.appName.text = this.App.Name;
 
-            devName.text = this.App.GameDeveloper.Name;
+            if (this.App.GameDeveloper != null)
+            {
+                devName.text = this.App.GameDeveloper.Name;
+            }
 
-            if(this.App.GameGenres.Count > 0)
-                this.gameCategory.text = this.App.GameGenres[0].Name;
-
-            this.description.text = this.App.Description;
+            if (this.App.GameGenres != null && this.App.GameGenres.Count > 0)
+            {
+                if (this.App.GameGenres[0].ParentGenre != null)
+                {
+                    this.gameCategory.text = this.App.GameGenres[0].ParentGenre.Name + " / " + this.App.GameGenres[0].Name;
+                }
+                else
+                {
+                    this.gameCategory.text = this.App.GameGenres[0].Name;
+                }
+            }
 
             appIcon.Set(this.App.IconUrl);
 
             communityText.text = this.App.Name + " " + FASText.Get("Community");
+
+            this.description.text = this.App.Description;
+
+            this.description.CalculateLayoutInputVertical();
+
+            this.description.CalculateLayoutInputHorizontal();
+
+            descriptionPrefferedHeight = description.preferredHeight;
+            
+            if (descriptionPrefferedHeight <= textSetterDescriptionText.truncateHeight)
+            {
+                buttonSeeMoreObj.SetActive(false);
+
+                rectTransformDescriptionText.sizeDelta = new Vector2(rectTransformDescriptionText.sizeDelta.x, descriptionPrefferedHeight);
+
+                descriptionAreaLayoutElement.minHeight = descriptionAreaLayoutElement.preferredHeight = descriptionPrefferedHeight + descriptionBottomMargin;
+            }
+            else
+            {
+                buttonSeeMoreObj.SetActive(true);
+
+                rectTransformDescriptionText.sizeDelta = new Vector2(rectTransformDescriptionText.sizeDelta.x, textSetterDescriptionText.truncateHeight);
+
+                descriptionAreaLayoutElement.minHeight = descriptionAreaLayoutElement.preferredHeight = 286f;
+            }
+        }
+
+        public float descriptionBottomMargin = 20f;
+
+        public void OnClickSeeMore()
+        {
+            buttonSeeMoreObj.SetActive(false);
+
+            rectTransformDescriptionText.sizeDelta = new Vector2(rectTransformDescriptionText.sizeDelta.x, descriptionPrefferedHeight);
+
+            descriptionAreaLayoutElement.minHeight = descriptionAreaLayoutElement.preferredHeight = descriptionPrefferedHeight + descriptionBottomMargin;
+
+            textSetterDescriptionText.truncate = AUITextSetter.TruncateType.None;
+
+            this.description.text = this.App.Description;
         }
 
         public void ShareTwitter()
@@ -195,9 +357,10 @@ namespace Fresvii.AppSteroid.UI
              {
                  if (e != null)
                      Debug.LogError(e.ToString());
+
+                 Application.OpenURL(this.App.StoreUrl);
              });    
 
-             Application.OpenURL(this.App.StoreUrl);
          }
 
         public void Back()
@@ -219,6 +382,8 @@ namespace Fresvii.AppSteroid.UI
             }
         }
 
+        public GameObject previews;
+
         void OnGetVideoList(IList<Fresvii.AppSteroid.Models.Video> videos, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
             if (this == null || this.enabled == false)
@@ -236,11 +401,18 @@ namespace Fresvii.AppSteroid.UI
                 return;
             }
 
-            previewLoadingSpinner.SetActive(false);
-
             this.previewListMeta = meta;
 
             this.previewVideos = videos;
+
+            if (this.previewListMeta.TotalCount > 0)
+            {
+                previews.SetActive(true);
+            }
+            else
+            {
+                return;
+            }
 
             foreach (var video in videos)
             {

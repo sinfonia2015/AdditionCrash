@@ -36,12 +36,9 @@ namespace Fresvii.AppSteroid.UI
 
         private bool loaded;
 
-        uint? minPage = 1, currentPage = 1, maxPage = 1;
+        uint? maxPage = 1;
 
-        void Awake()
-        {
-            //contents.padding.bottom += (AUITabBar.Instance.gameObject.activeInHierarchy) ? AUITabBar.Instance.GetHeight() : 0;
-        }
+        private readonly uint ImagePerPage = 24;
 
         void OnEnable()
         {
@@ -65,6 +62,8 @@ namespace Fresvii.AppSteroid.UI
             }
 
             pullReflesh.OnPullUpReflesh -= OnPullUpReflesh;
+
+            AUIManager.Instance.HideLoadingSpinner();
         }
 
         void OnPullDownReflesh()
@@ -90,13 +89,13 @@ namespace Fresvii.AppSteroid.UI
                 {
                     string query = "{\"where\":[{\"column\": \"image\", \"operator\": \"!=\", \"value\": null}],\"operation\": \"any\",\"order\": {\"created_at\": \"desc\"}}";
 
-                    Fresvii.AppSteroid.FASForum.GetCommentList((uint)maxPage, query, OnGetImageAndVideoComments);
+                    Fresvii.AppSteroid.FASForum.GetCommentList((uint)maxPage, ImagePerPage, query, OnGetImageAndVideoComments);
                 }
                 else if (mode == Mode.Videos)
                 {
                     string query = "{\"where\":[{\"column\": \"video_id\", \"operator\": \"!=\", \"value\": null}],\"operation\": \"any\",\"order\": {\"created_at\": \"desc\"}}";
 
-                    Fresvii.AppSteroid.FASForum.GetCommentList((uint)maxPage, query, OnGetImageAndVideoComments);
+                    Fresvii.AppSteroid.FASForum.GetCommentList((uint)maxPage, ImagePerPage, query, OnGetImageAndVideoComments);
                 }
             }
             else
@@ -108,16 +107,19 @@ namespace Fresvii.AppSteroid.UI
         // Use this for initialization
         IEnumerator Init()
         {
+            if (!this.gameObject.activeSelf)
+            {
+                yield break;
+            }
+
+            if (!loaded)
+                AUIManager.Instance.ShowLoadingSpinner();
+
             yield return 1;
 
             while (!FASUser.IsLoggedIn() || auiForum.frame.Animating)
             {
                 yield return 1;
-            }
-
-            if (!this.gameObject.activeSelf)
-            {
-                yield break;
             }
 
             if (!loaded && mode == Mode.All)
@@ -194,13 +196,13 @@ namespace Fresvii.AppSteroid.UI
             {
                 string query = "{\"where\":[{\"column\": \"image\", \"operator\": \"!=\", \"value\": null}],\"operation\": \"any\",\"order\": {\"created_at\": \"desc\"}}";
 
-                Fresvii.AppSteroid.FASForum.GetCommentList(query, OnGetImageAndVideoComments);
+                Fresvii.AppSteroid.FASForum.GetCommentList(1, ImagePerPage, query, OnGetImageAndVideoComments);
             }
             else if (mode == Mode.Videos)
             {
                 string query = "{\"where\":[{\"column\": \"video_id\", \"operator\" : \"!=\", \"value\": null}],\"order\": {\"created_at\": \"desc\"}}";
 
-                Fresvii.AppSteroid.FASForum.GetCommentList(query, OnGetImageAndVideoComments);
+                Fresvii.AppSteroid.FASForum.GetCommentList(1, ImagePerPage, query, OnGetImageAndVideoComments);
             }
 
 			contents.ReLayout();
@@ -243,6 +245,8 @@ namespace Fresvii.AppSteroid.UI
 
         private void OnGetImageAndVideoComments(IList<Fresvii.AppSteroid.Models.Comment> comments, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
+            AUIManager.Instance.HideLoadingSpinner();
+
             if (isPullRefleshProc)
             {
                 isPullRefleshProc = false;
@@ -323,6 +327,8 @@ namespace Fresvii.AppSteroid.UI
 
         private void OnGetForumThreads(IList<Fresvii.AppSteroid.Models.Thread> threads, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
+            AUIManager.Instance.HideLoadingSpinner();
+
             if (this == null)
             {
                 return;

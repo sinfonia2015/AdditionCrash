@@ -138,7 +138,7 @@ namespace Fresvii.AppSteroid.UI
                 }
             }
 
-            buttonLike.colors = (this.Comment.Like) ? likeOn : likeOff;
+            heartIcon.color = (this.Comment.Like) ? likeOn : likeOff;
 
             commentCount.text = ThreadManager.ThreadCell.Thread.CommentCount.ToString();
 
@@ -163,7 +163,6 @@ namespace Fresvii.AppSteroid.UI
 
             SetLayout();
         }
-        float commentHeight = 0f;
 
         public float Height { get; protected set; }
 
@@ -176,8 +175,6 @@ namespace Fresvii.AppSteroid.UI
                 if (commentText.gameObject.activeSelf)
                 {
                     clipImageRectTransform.anchoredPosition = new Vector2(0f, commentText.rectTransform.anchoredPosition.y - commentText.preferredHeight - margin);
-
-                    commentHeight = commentText.preferredHeight;
 
                     Height = -clipImageRectTransform.anchoredPosition.y + clipImageRectTransform.sizeDelta.y + margin;
 
@@ -207,7 +204,7 @@ namespace Fresvii.AppSteroid.UI
             {
                 if (Comment != null)
                 {
-                    updatedAt.text = AUIUtility.CurrentTimeSpan(Comment.UpdateAt);
+                    updatedAt.text = AUIUtility.CurrentTimeSpan(Comment.CreatedAt);
 
                     yield return new WaitForSeconds(60f);
                 }
@@ -223,9 +220,9 @@ namespace Fresvii.AppSteroid.UI
 
         }
 
-        public ColorBlock likeOn, likeOff;
+        public Color likeOn, likeOff;
 
-        public Button buttonLike;
+        public Image heartIcon;
 
         public void OnClickLike()
         {
@@ -244,7 +241,7 @@ namespace Fresvii.AppSteroid.UI
                 StartCoroutine(ThreadUnlikeCoroutine());
             }
 
-            buttonLike.colors = (this.Comment.Like) ? likeOn : likeOff;
+            heartIcon.color = (this.Comment.Like) ? likeOn : likeOff;
 
             likeCount.text = this.Comment.LikeCount.ToString();
         }

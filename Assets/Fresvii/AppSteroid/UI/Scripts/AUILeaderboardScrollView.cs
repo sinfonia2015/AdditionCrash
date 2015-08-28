@@ -113,7 +113,7 @@ namespace Fresvii.AppSteroid.UI
                 }
             });
 
-            FASLeaderboard.GetRanking(auiLeaderboard.Leaderboard.Id, period, false, 0, OnGetRanking);           
+            FASLeaderboard.GetRanking(auiLeaderboard.Leaderboard.Id, period, false, 1, OnGetRanking);           
         }
 
         void OnGetRanking(IList<Fresvii.AppSteroid.Models.Score> scores, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)

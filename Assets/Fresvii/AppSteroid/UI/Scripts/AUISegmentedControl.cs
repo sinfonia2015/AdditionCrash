@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AUISegmentedControl : MonoBehaviour
 {
+    private static readonly Color lineColor = new Color(195f / 255f, 195f / 255f, 195f / 255f);
+
     public Button[] buttons;
 
     public Text[] texts;
@@ -24,6 +26,16 @@ public class AUISegmentedControl : MonoBehaviour
         if (init)
         {
             SetImage(selectedIndex);
+        }
+
+
+        Image line = transform.FindChild("Line").GetComponent<Image>();
+
+        if (line != null)
+        {
+            line.color = lineColor;
+
+            line.rectTransform.sizeDelta = new Vector2(line.rectTransform.sizeDelta.x, 1f);
         }
     }
 

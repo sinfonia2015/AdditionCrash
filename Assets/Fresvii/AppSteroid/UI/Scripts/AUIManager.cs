@@ -62,7 +62,9 @@ namespace Fresvii.AppSteroid.UI
 
             Application.targetFrameRate = 60;
 
-#if UNITY_IPHONE && !UNITY_EDITOR
+#if UNITY_5 && UNITY_IOS && !UNITY_EDITOR
+            fontUp = (UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhone5 || UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhone5C || UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhone5S || UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhone4S || UnityEngine.iOS.Device.generation == UnityEngine.iOS.DeviceGeneration.iPhone4);
+#elif UNITY_IOS && !UNITY_EDITOR
             fontUp = (iPhone.generation == iPhoneGeneration.iPhone5 || iPhone.generation == iPhoneGeneration.iPhone5C || iPhone.generation == iPhoneGeneration.iPhone5S || iPhone.generation == iPhoneGeneration.iPhone4S || iPhone.generation == iPhoneGeneration.iPhone4);
 #endif
 
@@ -164,10 +166,7 @@ namespace Fresvii.AppSteroid.UI
 
                 ShowGroupConferenceGUI();
             }
-
-            if (FASGui.SelectedMode != FASGui.Mode.MatchMaking && FASGui.SelectedMode != FASGui.Mode.GroupConference)
-                FASGui.SelectedMode = FASGui.Mode.MoreApps; 
-
+            
             SetTabButtons();
 
             SelectTab(FASGui.SelectedMode);
@@ -528,13 +527,17 @@ namespace Fresvii.AppSteroid.UI
             {
                 AUITabBar.Instance.OnSelected(AUITabBar.TabButton.MyPage);
             }
-            else if (selected == FASGui.Mode.MoreApps)
+            else
             {
                 AUITabBar.Instance.OnSelected(AUITabBar.TabButton.MoreApps);
             }
         }
 
         float postScreenWidth = Screen.width;
+
+		float postScreenHeight = Screen.height;
+
+		DeviceOrientation postDeviceOrientation = DeviceOrientation.Unknown;
 
 #if GROUP_CONFERENCE
         private bool showVoiceChatNotification = false;
@@ -545,7 +548,7 @@ namespace Fresvii.AppSteroid.UI
 
         void Update()
         {
-            if (postScreenWidth != Screen.width)
+			if (postScreenWidth != Screen.width || postScreenHeight != Screen.height || Input.deviceOrientation != postDeviceOrientation)
             {
                 auiCanvasScaleManager.SetCanvasScale();
 
@@ -555,6 +558,10 @@ namespace Fresvii.AppSteroid.UI
                 }
 
                 postScreenWidth = Screen.width;
+
+				postScreenHeight = Screen.height;
+
+				postDeviceOrientation = Input.deviceOrientation;
             }
 
             if (Input.GetKeyUp(KeyCode.Escape) && OnEscapeTapped != null && canBackButton)
@@ -671,6 +678,27 @@ namespace Fresvii.AppSteroid.UI
                     }
                 }
             }
+
+            if (selectedTab == AUITabBar.TabButton.Forum)
+            {
+                FASGui.SelectedMode = FASGui.Mode.Forum;
+            }
+            else if (selectedTab == AUITabBar.TabButton.Leaderboards)
+            {
+                FASGui.SelectedMode = FASGui.Mode.Leaderboards;
+            }
+            else if (selectedTab == AUITabBar.TabButton.MoreApps)
+            {
+                FASGui.SelectedMode = FASGui.Mode.MoreApps;
+            }
+            else if (selectedTab == AUITabBar.TabButton.MyPage)
+            {
+                FASGui.SelectedMode = FASGui.Mode.MyProfile;
+            }
+            else if (selectedTab == AUITabBar.TabButton.Messages)
+            {
+                FASGui.SelectedMode = FASGui.Mode.GroupMessage;
+            }
         }
 
         void GoToTopFrame()
@@ -764,8 +792,6 @@ namespace Fresvii.AppSteroid.UI
                 return;
             }
 
-            RectTransform rectTransform = GetComponent<RectTransform>();
-
             AUIGroupConference groupConference = ((GameObject)Instantiate(prfbGroupConference)).GetComponent<AUIGroupConference>();
 
             groupConference.transform.SetParent(groupConferenceTopNode.transform, false);
@@ -785,8 +811,6 @@ namespace Fresvii.AppSteroid.UI
             matchMakingTopNode.SetActive(true);
 
             matchMakingTopNode.transform.SetAsLastSibling();
-
-            RectTransform rectTransform = GetComponent<RectTransform>();
 
             AUIMatchMaking matchMaking = ((GameObject)Instantiate(prfbMatchMaking)).GetComponent<AUIMatchMaking>();
 

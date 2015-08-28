@@ -7,6 +7,8 @@ namespace Fresvii.AppSteroid.UI
 {
     public class AUIBanner : MonoBehaviour
     {
+        public AUIFrame parentFrame;
+
         public GameObject prfbBannerCell;
 
         public Transform contents;
@@ -58,7 +60,7 @@ namespace Fresvii.AppSteroid.UI
 
                 if (cell != null)
                 {
-                    cell.SetApp(app);
+                    cell.SetApp(app, parentFrame);
 
                     continue;
                 }
@@ -71,7 +73,7 @@ namespace Fresvii.AppSteroid.UI
 
                 cell = item.GetComponent<AUIBannerCell>();
 
-                cell.SetApp(app);
+                cell.SetApp(app, parentFrame);
 
                 cells.Add(cell);
             }
@@ -93,34 +95,24 @@ namespace Fresvii.AppSteroid.UI
             {
                 showIndex = Random.Range(0, cells.Count);
 
-                if (cells[showIndex].TextureIsReady)
+                cells[showIndex].Show();
+
+                StartCoroutine(SendImpression(cells[showIndex].App.Id));
+
+                yield return new WaitForSeconds(interval);
+
+                if (cells.Count != 1)
                 {
-                    if (!cells[showIndex].Showing) 
+                    bool hiding = true;
+
+                    cells[showIndex].Hide(() =>
                     {
-                        cells[showIndex].Show();
+                        hiding = false;
+                    });
 
-                        StartCoroutine(SendImpression(cells[showIndex].App.Id));
-                    }
-
-                    yield return new WaitForSeconds(interval);
-
-                    if (cells.Count != 1)
-                    {
-                        bool hiding = true;
-
-                        cells[showIndex].Hide(() =>
-                        {
-                            hiding = false;
-                        });
-
-                        while (hiding)
-                            yield return 1;
-                    }
-                }
-                else
-                {
-                    yield return 1;
-                }
+                    while (hiding)
+                        yield return 1;
+                }                
             }
         }
 

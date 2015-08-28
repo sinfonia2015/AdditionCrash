@@ -9,7 +9,7 @@ namespace Fresvii.AppSteroid.UI
     {
         public AUIRawImageTextureSetter userIcon;
 
-        public Text name;
+        public Text userName;
 
         public Text subject;
 
@@ -66,7 +66,7 @@ namespace Fresvii.AppSteroid.UI
 
         void SetDirectMessage(Fresvii.AppSteroid.Models.DirectMessage dm)
         {
-            name.fontStyle = subject.fontStyle = (dm.Unread) ? FontStyle.Bold : FontStyle.Normal;
+            userName.fontStyle = subject.fontStyle = (dm.Unread) ? FontStyle.Bold : FontStyle.Normal;
 
             subject.text = dm.Subject;
         }

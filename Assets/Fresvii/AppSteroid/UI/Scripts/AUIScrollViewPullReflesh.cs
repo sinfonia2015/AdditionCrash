@@ -117,8 +117,6 @@ namespace Fresvii.AppSteroid.UI
             }            
         }
 
-        private bool pinned;
-
         private Vector2 prevPos;
 
         public void PullRefleshCompleted(bool pinned = false)
@@ -136,9 +134,6 @@ namespace Fresvii.AppSteroid.UI
             }
 
             if (!this.gameObject.activeInHierarchy) return;
-
-            this.pinned = pinned;
-
 
             if (!pinned)
             {

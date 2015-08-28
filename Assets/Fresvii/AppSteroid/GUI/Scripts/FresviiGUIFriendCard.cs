@@ -157,7 +157,7 @@ namespace Fresvii.AppSteroid.Gui
 
             userProfileUrl = user.ProfileImageUrl;
 
-            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(user.ProfileImageUrl, true, delegate(Texture2D texture)
+            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(user.ProfileImageUrl, true, false, false, delegate(Texture2D texture)
             {
                 userIcon = texture;
 

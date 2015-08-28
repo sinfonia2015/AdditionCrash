@@ -52,6 +52,10 @@ namespace Fresvii.AppSteroid.UI
 
         public AUITextSetter titleTextSetter;
 
+        public Sprite iconCallDisable, iconCallEnable;
+
+        bool includingOfficial;
+
         void OnEnable()
         {
             pullReflesh.OnPullDownReflesh += OnPullDownReflesh;
@@ -454,26 +458,21 @@ namespace Fresvii.AppSteroid.UI
 					Debug.LogError(e.ToString());
 			});
 
-#if GROUP_CONFERENCE
-            bool includingOficial = false;
-             
+#if GROUP_CONFERENCE             
             Group.FetchMembers((error) =>
             {
                 if (error == null)
                 {
+                    buttonCall.gameObject.SetActive(true);
+
                     foreach (var member in Group.Members)
                     {
                         if (member.Official)
                         {
-                            includingOficial = true;
+                            includingOfficial = true;
 
                             break;
                         }
-                    }
-
-                    if (!includingOficial)
-                    {
-                        buttonCall.gameObject.SetActive(true);
                     }
                 }
             });
@@ -541,8 +540,6 @@ namespace Fresvii.AppSteroid.UI
                 this.listMeta = meta;
             }
 
-            added = false;
-
             foreach (Fresvii.AppSteroid.Models.GroupMessage groupMessage in groupMessages)
             {
                 UpdateGroupMessage(groupMessage);
@@ -554,13 +551,9 @@ namespace Fresvii.AppSteroid.UI
 
                 pullRefleshing = false;
             }
-
-            added = false;
             
             Sort();
         }
-
-        bool added = false;
 
         string latestMessageId = "";
 
@@ -655,8 +648,6 @@ namespace Fresvii.AppSteroid.UI
                 groupMessageCells.Add(cell);
 
                 cell.gameObject.SetActive(false);
-
-                added = true;
 
                 AUITabBar.Instance.GroupMessageRead(groupMessage.GroupId);
             }
@@ -802,7 +793,18 @@ namespace Fresvii.AppSteroid.UI
         void Update()
         {
 #if GROUP_CONFERENCE
-            buttonCall.interactable = !FASConference.IsCalling();
+            if (includingOfficial || FASConference.IsCalling())
+            {
+                buttonCall.image.sprite = iconCallDisable;
+
+                buttonCall.interactable = false;
+            }
+            else
+            {
+                buttonCall.image.sprite = iconCallEnable;
+
+                buttonCall.interactable = true;
+            }
 #endif
         }
     }

@@ -34,8 +34,6 @@ namespace Fresvii.AppSteroid.UI
 
         public Text title;
 
-        bool initilized;
-
         public GameObject gameBackButton;
 
         public GameObject frameBackButton;
@@ -120,8 +118,6 @@ namespace Fresvii.AppSteroid.UI
 
         void OnGetGroupList(IList<Fresvii.AppSteroid.Models.Group> groups, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)
         {
-            initilized = true;
-
             if (this == null || this.enabled == false || !this.gameObject.activeInHierarchy)
             {
                 return;
@@ -156,12 +152,10 @@ namespace Fresvii.AppSteroid.UI
             Sort();
         }
 
-       
-
         private void Sort()
         {
             // Sort
-            messageCells.Sort((a, b) => System.DateTime.Compare(b.Group.UpdatedAt, a.Group.UpdatedAt));
+            messageCells.Sort((a, b)=> System.DateTime.Compare(b.Group.LatestMessage.CreatedAt, a.Group.LatestMessage.CreatedAt));
 
             foreach (var obj in messageCells)
             {
@@ -169,6 +163,28 @@ namespace Fresvii.AppSteroid.UI
             }
 
             contents.ReLayout();
+        }
+
+        int SortCondition(AUIMessageListCell a, AUIMessageListCell b)
+        {
+            int ret = System.DateTime.Compare(a.Group.UpdatedAt, b.Group.UpdatedAt);
+
+
+            if (ret != 0)
+            {
+                return ret;
+            }
+
+            ret = System.DateTime.Compare(a.Group.CreatedAt, b.Group.CreatedAt);
+
+            if (ret != 0)
+            {
+                return ret;
+            }
+
+            ret = string.Compare(a.Group.Id, b.Group.Id);
+
+            return ret;
         }
 
         private bool UpdateGroup(Fresvii.AppSteroid.Models.Group group)

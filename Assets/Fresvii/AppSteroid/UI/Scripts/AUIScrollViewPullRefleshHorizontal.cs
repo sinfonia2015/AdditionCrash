@@ -28,8 +28,6 @@ namespace Fresvii.AppSteroid.UI
 
         private RectTransform scrollView;
 
-        private AUIScrollViewContents scrollViewContents;
-
         private RectTransform loadingSpinnerRectTransform;
 
         public bool showLoadingSpinner = true;
@@ -40,8 +38,6 @@ namespace Fresvii.AppSteroid.UI
             scrollView = GetComponent<RectTransform>();
 
             scrollRect = GetComponent<AUIScrollRect>();
-
-            scrollViewContents = content.GetComponent<AUIScrollViewContents>();
         }
 
         void Update()

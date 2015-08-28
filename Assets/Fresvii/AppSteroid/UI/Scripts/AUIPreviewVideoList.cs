@@ -64,7 +64,7 @@ namespace Fresvii.AppSteroid.UI
                 }
                 else
                 {
-                    FASApps.GetVideoList((uint)PreviewListMeta.NextPage, App.Id, OnGetVideoList);
+                    FASApps.GetVideoList((uint)PreviewListMeta.NextPage, null, App.Id, OnGetVideoList);
                 }
             }
             else
@@ -92,11 +92,6 @@ namespace Fresvii.AppSteroid.UI
                 yield return 1;
             }
 
-            if (PreviewVideos != null && PreviewListMeta != null)
-            {
-
-            }
-
             yield return 1;
 
             AUIManager.Instance.ShowLoadingSpinner();
@@ -105,23 +100,26 @@ namespace Fresvii.AppSteroid.UI
             {
                 mode = Mode.Advertisement;
 
+                FASUtility.SendPageView("pv.app_gallery.show.previews", "", System.DateTime.UtcNow, (e) =>
+                {
+                    if (e != null)
+                        Debug.LogError(e.ToString());
+                });
+
                 FASAdvertisement.GetVideoList(1, OnGetVideoList);
             }
             else
             {
-                mode = Mode.Apps; 
+                mode = Mode.Apps;
 
-                FASApps.GetVideoList(1, App.Id, OnGetVideoList);
+                FASUtility.SendPageView("pv.apps.previews", App.Id, System.DateTime.UtcNow, (e) =>
+                {
+                    if (e != null)
+                        Debug.LogError(e.ToString());
+                });
+
+                FASApps.GetVideoList(1, null, App.Id, OnGetVideoList);
             }
-
-            string sendObjectKey = (App != null) ? this.App.Id : "";
-
-            FASUtility.SendPageView("pv.app_gallery.previews", sendObjectKey, System.DateTime.UtcNow, (e) =>
-            {
-                if (e != null)
-                    Debug.LogError(e.ToString());
-            });
-
         }
 
         void OnGetVideoList(IList<Fresvii.AppSteroid.Models.Video> videos, Fresvii.AppSteroid.Models.ListMeta meta, Fresvii.AppSteroid.Models.Error error)

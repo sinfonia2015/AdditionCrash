@@ -310,7 +310,7 @@ namespace Fresvii.AppSteroid.Gui
             }
 
 
-            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(url, true, delegate(Texture2D tex)
+            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(url, true, false, true, delegate(Texture2D tex)
             {
                 clipImage = tex;
 
@@ -333,7 +333,7 @@ namespace Fresvii.AppSteroid.Gui
 
             userProfileUrl = Comment.User.ProfileImageUrl;
 
-            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(Comment.User.ProfileImageUrl, true, delegate(Texture2D texture)
+            FresviiGUIManager.Instance.resourceManager.TextureFromCacheOrDownloadOrMemory(Comment.User.ProfileImageUrl, true,  false, false, delegate(Texture2D texture)
             {
                 userIcon = texture;
 

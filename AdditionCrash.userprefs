@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Login.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\..\..\DATA\Unity\Unity5.0\memotype\Assets\Scripts\AI\SoldierBehaviour.cs">
     <Files>
-      <File FileName="Assets\Scripts\Login.cs" Line="10" Column="43" />
+      <File FileName="..\..\..\..\..\DATA\Unity\Unity5.0\memotype\Assets\Scripts\AI\SoldierBehaviour.cs" Line="324" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

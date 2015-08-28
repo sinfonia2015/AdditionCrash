@@ -6,9 +6,7 @@ namespace Fresvii.AppSteroid.UI
 {
     public class AUICommunityTopCommentCell : MonoBehaviour
     {
-        Fresvii.AppSteroid.Models.Thread thread;
-
-        public Fresvii.AppSteroid.Models.Comment Comment;
+        public Fresvii.AppSteroid.Models.Thread Thread;
 
         public AUIRawImageTextureSetter userIcon;
 
@@ -18,65 +16,48 @@ namespace Fresvii.AppSteroid.UI
 
         public bool showAppIcon;
 
-        private System.Action<Fresvii.AppSteroid.Models.Comment> OnClickComment;
+        private bool isApp;
 
-        public void SetThread(Fresvii.AppSteroid.Models.Thread thread)
+        private System.Action<Fresvii.AppSteroid.Models.Thread> OnClickCell;
+
+        public void SetThread(Fresvii.AppSteroid.Models.Thread thread, bool isApp, System.Action<Fresvii.AppSteroid.Models.Thread> OnClickCell)
         {
-            if (this.thread == null || this.thread.Id != thread.Id)
-            {
-                UpdateThread(thread);
-            }
-        }
+            this.OnClickCell = OnClickCell;
 
-        public void SetComment(Fresvii.AppSteroid.Models.Comment comment, System.Action<Fresvii.AppSteroid.Models.Comment> OnClickComment)
-        {
-            this.OnClickComment = OnClickComment;
+            this.isApp = isApp;
 
-            if (this.Comment == null || this.Comment.Id != comment.Id)
-            {
-                UpdateComment(comment);
-            }
+            UpdateThread(thread);
         }
 
         // Update is called once per frame
         void UpdateThread(Fresvii.AppSteroid.Models.Thread thread)
         {
-            this.thread = thread;
+            this.Thread = thread;
 
-            userIcon.Set(thread.User.ProfileImageUrl);
-
-            text.text = thread.Comment.Text;
-        }
-
-        // Update is called once per frame
-
-        public Material appIconMaterial;
-
-        void UpdateComment(Fresvii.AppSteroid.Models.Comment comment)
-        {
-            this.Comment = comment;
-
-            if (showAppIcon)
+            if (isApp)
             {
-                userIcon.Set(comment.App.IconUrl);
+                userIcon.Set(thread.App.IconUrl);
             }
             else
             {
-                userIcon.Set(comment.User.ProfileImageUrl);
+                userIcon.Set(thread.User.ProfileImageUrl);
             }
 
-            text.text = comment.Text;
+            if (string.IsNullOrEmpty(thread.Title))
+            {
+                text.text = thread.Comment.Text;
+            }
+            else
+            {
+                text.text = thread.Title;
+            }
         }
 
         public void OnClick()
         {
-            if (thread != null)
+            if (OnClickCell != null)
             {
-                communityTop.GoToThread(thread.Id, thread.Comment, true);
-            }
-            else if (Comment != null && OnClickComment != null)
-            {
-                OnClickComment(Comment);
+                OnClickCell(Thread);
             }
         }
     }

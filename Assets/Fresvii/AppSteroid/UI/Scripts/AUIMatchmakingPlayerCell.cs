@@ -17,8 +17,6 @@ namespace Fresvii.AppSteroid.UI
 
         public Text userNameMatching, matchingStatus;
 
-        private bool isMe;
-
         public Image tagLabel;
 
         public Text tagText;
@@ -197,8 +195,6 @@ namespace Fresvii.AppSteroid.UI
 
                 goSetting.SetActive(true);
 
-                //userNameSetting.GetComponent<AUITextSetter>().truncate = AUITextSetter.TruncateType.None;
-
                 userNameSetting.text = FASText.Get("AutoMatch");
             }
 
@@ -206,9 +202,7 @@ namespace Fresvii.AppSteroid.UI
         }
 
         public void Clear()
-        {
-            if (isMe) return;
-
+        {         
             userIcon.ReleaseTexture();
 
             userIcon.SetTexture(defaultUserIcon);

@@ -12,28 +12,40 @@ namespace Fresvii.AppSteroid.UI
 
         public Text eventNameText;
 
-        AUICommunityTop auiCommunityTop;
+        System.Action<Fresvii.AppSteroid.Models.GameEvent> OnClickCallback;
 
-        public void SetGameEvent(Fresvii.AppSteroid.Models.GameEvent gameEvent, AUICommunityTop auiCommunityTop)
+        public void SetGameEvent(Fresvii.AppSteroid.Models.GameEvent gameEvent, System.Action<Fresvii.AppSteroid.Models.GameEvent> OnClick)
         {
-            this.auiCommunityTop = auiCommunityTop;
+            this.OnClickCallback = OnClick;
 
             this.GameEvent = gameEvent;
 
             image.Set(GameEvent.ImageUrl);
 
             eventNameText.text = this.GameEvent.Name;
+
+            if (this.OnClickCallback == null)
+            {
+                this.gameObject.GetComponent<Button>().interactable = false;
+            }
         }
 
         public void OnClick()
         {
             if (!string.IsNullOrEmpty(GameEvent.WebSiteUrl))
             {
-                Application.OpenURL(GameEvent.WebSiteUrl);
+                FASUtility.SendPageView("pv.community.events.show", GameEvent.Id, System.DateTime.UtcNow, (e) =>
+                {
+                    if (e != null)
+                        Debug.LogError(e.ToString());
+
+                    Application.OpenURL(GameEvent.WebSiteUrl);
+                });
             }
             else
             {
-                auiCommunityTop.GoToGameEvent(this.GameEvent);
+                if(this.OnClickCallback != null)
+                    OnClickCallback(this.GameEvent);
             }
         }
     }

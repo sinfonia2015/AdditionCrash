@@ -1,4 +1,4 @@
-Key	English	Japanese
+	English	Japanese
 Done	Done	完了
 Yes	Yes	はい
 No	No	いいえ
@@ -104,18 +104,18 @@ Confirm	Confirm	承認
 Ignore	Ignore	無視
 Hide	Hide	隠す
 NotNow	Not Now	あとで
-Friend	Friend	ともだち
-Unfriend	Unfriend	ともだち解除
-FRIENDS	FRIENDS	ともだち
-Friends	Friends	ともだち
+Friend	Friend	フレンド
+Unfriend	Unfriend	フレンド解除
+FRIENDS	FRIENDS	フレンズ
+Friends	Friends	フレンズ
 FriendList	Friend List	フレンドリスト
 Requesting	Requesting	リクエスト中
 Requested	Requested	リクエスト受領
 FriendRequests	Friend Requests	フレンドリクエスト
-AddFriend	Add Friend	ともだち申請
+AddFriend	Add Friend	フレンド申請
 RequestSent	Request Sent	リクエスト送信
 Message	Message	メッセージ
-ConfirmUnfriend	Are you sure you want to unfriend?	ともだち解除してよいですか？
+ConfirmUnfriend	Are you sure you want to unfriend?	フレンド解除してよいですか？
 Messages	Messages	メッセージ
 NewMessage	New Message	新しいメッセージ
 Members	Members	メンバー
@@ -154,7 +154,7 @@ AutoMatch	Waiting for Player...	プレイヤーの参加を待っています…
 MatchDisposed	Not enough players. Please try again. 	プレイヤーが集まりませんでした。再度行ってください。
 InviteFriend	Invite friend or wait for opponent	友達を招待するか、対戦者を待つ
 SelectFrindsOvered	You can invite up to %num players	招待できるのは % 人までです。
-SelectFrinds	Select Friends	ともだちを選択する
+SelectFrinds	Select Friends	フレンドを選択する
 WaitingForPlayers	Waiting for Players...	参加者を待っています…
 SelectOpponents	Select Opponents	対戦者を選ぶ
 to	to	to
@@ -191,7 +191,7 @@ AddPeople	Add People	メンバーを追加
 Leave	Leave	グループをぬける
 Active	Active	アクティブ
 AddMember	Add Member	メンバーを追加
-Search...	Search...	探す…
+Search...	Search...	検索…
 LiveHelp	Live Help	ライブヘルプ
 VideosUploadedNumber	0 Videos Uploaded	0 本のビデオ
 Uploaded	Uploaded	アップロード
@@ -232,7 +232,7 @@ EULAAgree	I Agree	同意する
 EULADecline	Decline	同意しない
 Tweet	Tweet	ツイートする
 Share	Share	シェアする
-ViewAppStore	View in App Store	アップストアを見る
+ViewAppStore	View in App Store	App Store を見る
 ViewGooglePlayStore	View in Google Play Store	Googleプレイストアを見る
 Comments	Comments	コメント一覧
 Like	Like	Like
@@ -246,3 +246,8 @@ HotAppsThisWeek	Hot apps at this week.	今週のおすすめアプリ
 MoreAppsBy	More Apps by %developer	%developerのアプリ
 AppGallery	App Gallery	アプリギャラリー
 SeeMore	See More	もっと見る
+Respond	Respond	承認待ち
+EditTitle	Edit Title	タイトルを変更
+SeeMore...	See More...	もっと見る...
+SentYouFriendRequest	Sent you a friend request	フレンドリクエストを受信
+HotGameEvents	Hot Game Events	人気のゲームイベント

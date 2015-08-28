@@ -63,6 +63,9 @@
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
     </Reference>
+    <Reference Include="AppSteroidWithVoiceChatAndroid 1">
+      <HintPath>Assets\Plugins\Android\AppSteroidWithVoiceChatAndroid 1.dll</HintPath>
+    </Reference>
     <Reference Include="AppSteroidWithVoiceChatAndroid">
       <HintPath>Assets\Plugins\Android\AppSteroidWithVoiceChatAndroid.dll</HintPath>
     </Reference>
@@ -213,10 +216,12 @@
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupInfo.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupMemberCell.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIGroupMessageCell.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIHotGameEventCell.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIImageViewer.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIInputComment.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIInputMessage.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUIKeyboardInput.cs" />
+    <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementFade.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementHeightCalc.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementHelper.cs" />
     <Compile Include="Assets\Fresvii\AppSteroid\UI\Scripts\AUILayoutElementSizeControl.cs" />
@@ -308,6 +313,7 @@
     <Compile Include="Assets\Fresvii\XcodeAPI\PlistParser.cs" />
     <Compile Include="Assets\Fresvii\iTween\Plugins\iTween.cs" />
     <Compile Include="Assets\Scripts\BtnControl.cs" />
+    <Compile Include="Assets\Scripts\Chat.cs" />
     <Compile Include="Assets\Scripts\GameControler.cs" />
     <Compile Include="Assets\Scripts\Login.cs" />
     <Compile Include="Assets\Scripts\StartControl.cs" />
@@ -324,6 +330,8 @@
     <None Include="Assets\Fresvii\Samples\MatchMakingSampleGame\Unlit-Alpha-Color.shader" />
     <None Include="Assets\Fresvii\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+    <None Include="Assets\Plugins\Android\AndroidManifest_old_1.xml" />
+    <None Include="Assets\Plugins\Android\AndroidManifest_old_2.xml" />
     <None Include="Assets\Plugins\Android\res\layout\aui_videoplayer.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />

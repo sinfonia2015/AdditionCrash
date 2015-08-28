@@ -39,14 +39,20 @@ namespace Fresvii.AppSteroid.UI
 
         void OnDisable()
         {
+            AUIManager.Instance.HideLoadingSpinner();
+
             AUIManager.OnEscapeTapped -= Back;
+        }
+
+        void Awake()
+        {
+            AUIManager.Instance.ShowLoadingSpinner();
         }
 
         IEnumerator Init()
         {
             title.text = frame.title = "";
-            //backButtonText.text = frame.backFrame.title;
-
+            
             eventBoardPanel.SetActive(false);
 
             while (!AUIManager.Instance.Initialized)
@@ -72,6 +78,8 @@ namespace Fresvii.AppSteroid.UI
             {
                 FASLeaderboard.GetEvent(GameEvent.Id, (ge, error) =>
                 {
+                    AUIManager.Instance.HideLoadingSpinner();
+
                     if (error == null)
                     {
                         contents.gameObject.SetActive(true);
@@ -94,6 +102,8 @@ namespace Fresvii.AppSteroid.UI
             }
             else 
             {
+                AUIManager.Instance.HideLoadingSpinner();
+                
                 contents.gameObject.SetActive(true);
 
                 SetGameEvent();

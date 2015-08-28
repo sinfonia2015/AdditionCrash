@@ -14,8 +14,6 @@ namespace Fresvii.AppSteroid.UI
 
         public GameObject prfbMessageCell;
 
-        private List<AUIFriendRequestedCell> requestedCells = new List<AUIFriendRequestedCell>();
-
         private Fresvii.AppSteroid.Models.ListMeta meta;
 
         private bool isPullRefleshProc;

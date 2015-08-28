@@ -47,6 +47,11 @@ namespace Fresvii.AppSteroid.UI
             AUIManager.OnEscapeTapped -= GoToCommunity;
         }
 
+        void Start()
+        {
+            title.text = FASSettings.Instance.appName + " " + FASText.Get("Forum");
+        }
+
         public void MoveToTopThread()
         {
             nodeAll.scrollView.GoToTop(0f);
@@ -120,8 +125,6 @@ namespace Fresvii.AppSteroid.UI
             threadManager.auiForumManager = this;
 
             threadManager.SetThreadCell(cell);
-
-            this.frame.title = FASText.Get("Forum");
 
             AUIFrame nextFrame = threadManager.frame;
 

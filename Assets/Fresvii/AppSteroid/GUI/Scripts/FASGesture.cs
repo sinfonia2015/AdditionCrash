@@ -78,10 +78,11 @@ namespace Fresvii.AppSteroid.Gui{
 
 #if UNITY_EDITOR
         private float stayMagnitude = 10f;
-#endif
+
         private bool postIsDragging;
 
         private Vector2 postMousePosition;
+#endif
 
         public static Vector2 TouchPosition { get; protected set; }
 
@@ -429,6 +430,10 @@ namespace Fresvii.AppSteroid.Gui{
             IsTouchEnd = Input.GetMouseButtonUp(0);
 
             Delta = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - postMousePosition;
+
+            postMousePosition = Input.mousePosition;
+
+            postIsDragging = IsDragging;
 #endif
             if (OnSwipe != null)
             {
@@ -453,10 +458,6 @@ namespace Fresvii.AppSteroid.Gui{
             }
 
             #endregion
-
-            postMousePosition = Input.mousePosition;
-
-            postIsDragging = IsDragging;
 
             Delta = new Vector2(Mathf.Clamp(Delta.x, -Screen.width * maxSpeedScreenRate, Screen.width * maxSpeedScreenRate), Mathf.Clamp(Delta.y, -Screen.height * maxSpeedScreenRate, Screen.height * maxSpeedScreenRate));
         }

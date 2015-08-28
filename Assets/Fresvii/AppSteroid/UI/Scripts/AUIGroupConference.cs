@@ -171,7 +171,7 @@ namespace Fresvii.AppSteroid.UI
                             Debug.Log("GetCurrentConference: current conference exists");
                         }
 
-                        FASConference.JoinConference(_groupConference, FAS.OnVoiceChatError);
+                        FASConference.JoinConference(groupConference, FAS.OnVoiceChatError);
                     }
                     else
                     {
@@ -307,7 +307,7 @@ namespace Fresvii.AppSteroid.UI
 
             this.conferenceState = conferenceState;
 
-            if (conferenceState == FASConference.ConferenceStates.Destroyed)
+            if (this.conferenceState == FASConference.ConferenceStates.Destroyed)
             {
                 myCallState = FASConference.CallStates.Idle;
 

@@ -27,8 +27,6 @@ namespace Fresvii.AppSteroid.UI
 
         private bool isPullRefleshProc;
 
-        public Text backButtonText;
-
         public InputField searchInputField;
 
         void OnEnable()
@@ -78,8 +76,6 @@ namespace Fresvii.AppSteroid.UI
         void Search(uint page)
         {
             string query = "{\"where\":[{\"column\":\"name\",\"operator\":\"like\", \"value\":\"" + searchInputField.text + "%\"},{\"column\":\"user_code\",\"operator\":\"like\", \"value\":\"" + searchInputField.text + "%\"}],\"operation\": \"any\"}";
-
-            Debug.Log(query);
 
             FASUser.GetUserList("", "", query, page, OnGetUserList);
         }
@@ -205,6 +201,22 @@ namespace Fresvii.AppSteroid.UI
             {
                 Destroy(this.gameObject);
             });
+        }
+
+        public void Clear()
+        {
+            contents.Clear();
+
+            foreach (var cell in cells)
+            {
+                Destroy(cell.gameObject);
+            }
+
+            cells.Clear();
+
+            this.listMeta = null;
+
+            searchInputField.text = "";
         }
     }
 }

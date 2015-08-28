@@ -11,7 +11,7 @@ namespace Fresvii.AppSteroid.UI
 
         public AUIRawImageTextureSetter icon;
 
-        public Text name;
+        public Text leaderboardName;
 
         public Text despcription;
 
@@ -23,7 +23,7 @@ namespace Fresvii.AppSteroid.UI
 
             this.parentPage = parentPage;
 
-            name.text = leaderboard.Name;
+            leaderboardName.text = leaderboard.Name;
 
             despcription.text = leaderboard.Description;
 

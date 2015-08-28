@@ -23,7 +23,7 @@ namespace Fresvii.AppSteroid.UI
 
         public AUITextSetter groupNameTextSetter;
 
-        public void OnEnable()
+        void OnEnable()
         {
             StartCoroutine(UpdateUpdatedAt());
         }
@@ -142,8 +142,6 @@ namespace Fresvii.AppSteroid.UI
 
             updatedAt.color = (IsUnread()) ? unreadUpdateAt : readUpdateAt;
 
-            updatedAt.text = AUIUtility.CurrentTimeSpan(Group.LatestMessage.CreatedAt);
-
             if (isUnred)
             {
                 AUITabBar.Instance.AddUnredGroup(Group.Id);
@@ -153,6 +151,14 @@ namespace Fresvii.AppSteroid.UI
             {
                 groupNameTextSetter.truncatedReplacement = "...(" + Group.MembersCount.ToString() + ")";
             }
+
+            updatedAt.text = AUIUtility.CurrentTimeSpan(Group.LatestMessage.CreatedAt);
+
+            updatedAt.rectTransform.sizeDelta = new Vector2(20f + updatedAt.preferredWidth, updatedAt.rectTransform.sizeDelta.y);
+
+            groupName.rectTransform.sizeDelta = new Vector2(this.GetComponent<RectTransform>().rect.width - 190f - updatedAt.rectTransform.sizeDelta.x, groupName.rectTransform.sizeDelta.y);
+
+            postScreenWidth = Screen.width;
         }
 
         bool IsUnread()
@@ -189,15 +195,37 @@ namespace Fresvii.AppSteroid.UI
             Group.LastReadMessageId = Group.LatestMessage.Id;
         }
 
+        float postScreenWidth;
+
+        void LateUpdate()
+        {
+            if (postScreenWidth != Screen.width)
+            {
+                updatedAt.text = AUIUtility.CurrentTimeSpan(Group.LatestMessage.CreatedAt);
+
+                updatedAt.rectTransform.sizeDelta = new Vector2(20f + updatedAt.preferredWidth, updatedAt.rectTransform.sizeDelta.y);
+
+                groupName.rectTransform.sizeDelta = new Vector2(this.GetComponent<RectTransform>().rect.width - 190f - updatedAt.rectTransform.sizeDelta.x, groupName.rectTransform.sizeDelta.y);
+
+                groupName.GetComponent<AUITextSetter>().TruncateImediately();
+
+                postScreenWidth = Screen.width;
+            }
+        }
+
         IEnumerator UpdateUpdatedAt()
         {
             while (true)
             {
                 if (Group != null && Group.LatestMessage != null)
                 {
+                    yield return new WaitForSeconds(60f);
+
                     updatedAt.text = AUIUtility.CurrentTimeSpan(Group.LatestMessage.CreatedAt);
 
-                    yield return new WaitForSeconds(60f);
+                    updatedAt.rectTransform.sizeDelta = new Vector2(20f + updatedAt.preferredWidth, updatedAt.rectTransform.sizeDelta.y);
+
+                    groupName.rectTransform.sizeDelta = new Vector2(this.GetComponent<RectTransform>().rect.width - 190f - updatedAt.rectTransform.sizeDelta.x, groupName.rectTransform.sizeDelta.y);
                 }
                 else
                 {

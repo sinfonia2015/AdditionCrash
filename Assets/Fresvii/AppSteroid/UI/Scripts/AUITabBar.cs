@@ -62,9 +62,7 @@ namespace Fresvii.AppSteroid.UI
                 AUITabBar.Instance.tabBadges[(int)AUITabBar.TabButton.Messages].Count = unreadGroupMessageCount + unreadDirectMessageCount;
             }
         }
-
-        private List<string> friendshipRequestUserIds = new List<string>();
-
+        
         private List<string> unreadGroupIds = new List<string>();
 
         private List<Fresvii.AppSteroid.Models.DirectMessage> unreadDirectMessages = new List<Fresvii.AppSteroid.Models.DirectMessage>();

@@ -25,6 +25,7 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
 @property (retain, nonatomic) IBOutlet UIButton *buttonUser;
 @property (retain, nonatomic) IBOutlet UIButton *buttonApp;
 @property (retain, nonatomic) IBOutlet UILabel *labelAppName;
+@property (retain, nonatomic) IBOutlet UIButton *buttonLargePlay;
 
 @property (nonatomic, retain) NSURL*        videoUrl;
 @property (nonatomic, retain) AVPlayerItem* playerItem;
@@ -80,6 +81,7 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     [_buttonUser release];
     [_buttonApp release];
     [_labelAppName release];
+    [_buttonLargePlay release];
     [super dealloc];
 }
 
@@ -94,15 +96,21 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     self.initLike = self.like;
     
     self.closeEnable = false;
+
+    self.buttonClose.titleLabel.font   = [UIFont fontWithName:@"Koruri-Light" size:16.0f];
     
     [self.likeCountText setText:[NSString stringWithFormat:@"%d", self.likeCount]];
     
-    [self.likeCountText setFont:[UIFont fontWithName:@"OpenSans-Light"size:self.likeCountText.font.pointSize]];
-
+    self.likeCountText.numberOfLines = 0;
+    
+    [self.likeCountText sizeToFit];
+    
     [self.playbackCountText setText:[NSString stringWithFormat:@"%d", self.playbackCount]];
 
-    [self.playbackCountText setFont:[UIFont fontWithName:@"OpenSans-Light"size:self.playbackCountText.font.pointSize]];
-
+    self.playbackCountText.numberOfLines = 0;
+    
+    [self.playbackCountText sizeToFit];
+    
     if(self.appIconPath && self.appIconPath.length){
         
         UIImage *appIcon = [UIImage imageWithContentsOfFile:self.appIconPath];
@@ -124,8 +132,7 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
         self.labelAppName.hidden = YES;
     }
     
-
-    [self.labelAppName setFont:[UIFont fontWithName:@"OpenSans-Light"size:self.labelAppName.font.pointSize]];
+    self.labelAppName.font = [UIFont fontWithName:@"Koruri-Light" size:18.0f];
     
     if(self.userImagePath && self.userImagePath.length){
 
@@ -146,11 +153,13 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     
     self.seekBar.enabled    = NO;
     
+    UIImage *sliderThumb = [[UIImage imageNamed:@"video_player_thumb.png"] stretchableImageWithLeftCapWidth: 7 topCapHeight: 0];
+    
+    [self.seekBar setThumbImage:sliderThumb forState:UIControlStateNormal];
+    
     self.playerItem = [[[AVPlayerItem alloc] initWithURL:self.videoUrl] autorelease];
     
     [self.buttonClose setTitle:self.closeText forState:UIControlStateNormal];
-
-    [self.buttonClose.titleLabel setFont:[UIFont fontWithName:@"OpenSans-Light"size:self.buttonClose.titleLabel.font.pointSize]];
 
     [self.playerItem addObserver:self
                       forKeyPath:kStatusKey
@@ -273,6 +282,8 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
 {
     [super viewWillAppear:animated];
 
+    self.buttonLargePlay.hidden = YES;
+
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     [self.navigationController.navigationBar setTranslucent:YES];
     [self.navigationController.view setNeedsLayout];
@@ -309,8 +320,6 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     
     if( context == AVPlayerViewControllerStatusObservationContext )
     {
-        [self syncPlayButton];
-        
         const AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
         
         switch( status )
@@ -335,7 +344,7 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
                 self.playerLayer.frame = frame;
                 
                 self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-
+                
                 [self playVideo];
             break;
 
@@ -363,6 +372,11 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
 
 - (void)playVideo
 {
+    if(CMTimeGetSeconds(self.playerItem.currentTime) == CMTimeGetSeconds(self.playerItem.duration))
+    {
+        [self.videoPlayer seekToTime:kCMTimeZero];
+    }
+
     if( self.isPlaying )
     {
         self.isPlaying = NO;
@@ -377,18 +391,26 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     }
     
     [self syncPlayButton];
+    
+    [self performSelector:@selector(hideUI) withObject:nil afterDelay:3];
+}
+
+- (void)hideUI
+{
+    if(!self.uiHidden)
+        [self setUI:YES];
 }
 
 - (void)playerDidPlayToEndTime:(NSNotification *)notification
 {
-	[self.videoPlayer seekToTime:kCMTimeZero];
-    
     self.isPlaying = NO;
     
     [self syncPlayButton];
 
-    // for repeating
-    //[self.videoPlayer play];
+    if(self.uiHidden)
+    {
+        [self setUI:false];
+    }
 }
 
 
@@ -460,21 +482,95 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     if( self.isPlaying )
     {
         [self.playButton setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+        
+        if(!self.buttonLargePlay.hidden){
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.buttonLargePlay.alpha = 0;
+                
+            } completion:^(BOOL finished){
+
+                self.buttonLargePlay.hidden = finished;
+    
+            }];
+        }
     }
     else
     {
         [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+        
+        if(self.buttonLargePlay.hidden){
+            
+            self.buttonLargePlay.alpha = 0;
+            
+            self.buttonLargePlay.hidden = NO;
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                self.buttonLargePlay.alpha = 1;
+                
+            } completion:^(BOOL finished){
+                
+            }];
+        }
     }
 }
 
 
 - (void)tapSingle:(UITapGestureRecognizer *)sender
 {
+    [self toggleUI];
+}
+
+- (void) toggleUI
+{
     self.uiHidden = !self.uiHidden;
     
-    [self.topUIView setHidden:self.uiHidden];
-    [self.bottomUIView setHidden:self.uiHidden];
+    [self setUI:self.uiHidden];
+}
+
+- (void) setUI:(BOOL) hidden
+{
+    self.uiHidden = hidden;
     
+    if(hidden){
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            self.topUIView.alpha = 0;
+            
+            self.bottomUIView.alpha = 0;
+            
+        } completion:^(BOOL finished){
+            
+            self.topUIView.hidden = finished;
+            
+            self.bottomUIView.hidden = finished;
+        }];
+        
+    }
+    else{
+        
+        self.topUIView.alpha = 0;
+        
+        self.bottomUIView.alpha = 0;
+        
+        self.topUIView.hidden = NO;
+        
+        self.bottomUIView.hidden = NO;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            self.topUIView.alpha = 1;
+            
+            self.bottomUIView.alpha = 1;
+            
+        } completion:^(BOOL finished){
+            
+        }];
+    }
+
 }
 
 
@@ -482,7 +578,7 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
 {
     const NSInteger time = value;
     
-    return [NSString stringWithFormat:@"%d:%02d", ( int )( time / 60 ), ( int )( time % 60 )];
+    return [NSString stringWithFormat:@"%02d:%02d", ( int )( time / 60 ), ( int )( time % 60 )];
 }
 
 - (IBAction) pushedCloseButton:(id) sender{
@@ -524,15 +620,6 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     
     self.videoPlayer = nil;
     
-    /*self.videoPlayerView  = nil;
-    self.videoPlayer      = nil;
-    self.videoUrl         = nil;
-    self.playerItem       = nil;
-    self.currentTimeLabel = nil;
-    self.seekBar          = nil;
-    self.durationLabel    = nil;
-    self.playButton       = nil;
-    self.playerToolView   = nil;*/
 }
 
 - (IBAction) pushedLikeButton:(id) sender{
@@ -644,6 +731,11 @@ static void* AVPlayerViewControllerStatusObservationContext = &AVPlayerViewContr
     UnitySendMessage([self.callbackGameObjectName UTF8String], "OnTapAppButton", "");
         
     [self close];
+}
+
+- (IBAction) pushedLargePlayButton:(id) sender{
+
+    [self playVideo];
 }
 
 @end

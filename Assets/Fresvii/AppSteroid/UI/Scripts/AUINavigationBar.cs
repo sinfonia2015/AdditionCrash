@@ -1,28 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
 public class AUINavigationBar : MonoBehaviour {
 
-    public event Action OnClickBackButton;
+    private static readonly Color lineColor = new Color(195f/255f, 195f/255f, 195f/255f);
 
-    public void SetBackButton(string text)
+    void Start()
     {
+        Image line = transform.FindChild("Line").GetComponent<Image>();
 
+        if (line != null)
+        {
+            line.color = lineColor;
+
+            line.rectTransform.sizeDelta = new Vector2(line.rectTransform.sizeDelta.x, 1f);
+        }
     }
 
-    public void SetBackButton(Texture2D image)
-    {
 
-    }
-
-    public void SetRightButton(string text)
-    {
-
-    }
-
-    public void SetRightButton(Texture2D image)
-    {
-
-    }
 }
